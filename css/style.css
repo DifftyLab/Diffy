@@ -16,7 +16,9 @@ body {
   padding-right: 1rem;
   padding-left: 1rem;
 }
-
+.hearttext {
+    color:#EB5E28;
+}
 /* Custom page header */
 .header {
   padding-bottom: 1rem;
