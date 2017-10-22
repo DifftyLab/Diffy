@@ -44,28 +44,30 @@ var host = "https://diffyheart.herokuapp.com:443/";
 		loadScript("js/bootstrap.min.js", function () {
 			loadScript("https://diffyheart.herokuapp.com/dist/RTCMultiConnection.min.js", function () {
 				loadScript("https://diffyheart.herokuapp.com/socket.io/socket.io.js", function () {
-					var sock = new RTCMultiConnection();
-					sock.socketURL = host;
-					sock.session = {
-						data: true
-					};
-					$("input[name='roomid']").keyup(function() {
-						if($(this).val().length == 5){
-							$("button[name='submitroomid']").enable();
-						}else{
-							$("button[name='submitroomid']").disable();
-						}
-					});
-					$("button[name='submitroomid']").click(function(){
-						sock.checkPresence($("input[name='roomid']").val(), function(isRoomEists, roomid) {
-							if(!isRoomEists) {
-								alert("La room n'éxiste pas !");
+					loadScript("js/utils.js", function () {
+						var sock = new RTCMultiConnection();
+						sock.socketURL = host;
+						sock.session = {
+							data: true
+						};
+						$("input[name='roomid']").keyup(function() {
+							if($(this).val().length == 5){
+								$("button[name='submitroomid']").enable();
+							}else{
+								$("button[name='submitroomid']").disable();
 							}
-							history.pushState(history.state, null, "#" + roomid);
-							sock.join(roomid);
 						});
-					})
-				});	
+						$("button[name='submitroomid']").click(function(){
+							sock.checkPresence($("input[name='roomid']").val(), function(isRoomEists, roomid) {
+								if(!isRoomEists) {
+									alert("La room n'éxiste pas !");
+								}
+								history.pushState(history.state, null, "#" + roomid);
+								sock.join(roomid);
+							});
+						});
+					});
+				});
 			});	
 		});
 	});
