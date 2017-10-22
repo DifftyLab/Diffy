@@ -1,0 +1,33 @@
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 5; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}
+<script src="https://diffyheart.herokuapp.com/dist/RTCMultiConnection.min.js"></script>
+<script src="https://diffyheart.herokuapp.com/socket.io/socket.io.js"></script>
+
+<script>
+var connection = new RTCMultiConnection();
+
+// this line is VERY_important
+connection.socketURL = 'https://diffyheart.herokuapp.com:443/';
+
+// if you want text chat
+connection.session = {
+    data: true
+};
+
+connection.onopen = function(event) {
+    connection.send('hello everyone');
+};
+
+connection.onmessage = function(event) {
+    alert(event.userid + ' said: ' + event.data);
+};
+
+connection.openOrJoin('aaabbbb');
+</script>
