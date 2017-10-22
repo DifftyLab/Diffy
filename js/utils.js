@@ -1,28 +1,22 @@
-function Utils.makeid() {
-  var text = "";
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+function makeid() {
+    let text = "";
+    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (var i = 0; i < 5; i++){
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
 
-  for (var i = 0; i < 5; i++)
-	text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-  return text;
+    return text;
 }
-function selectElementContents(el) {
+function autoselect(el) {
     if (window.getSelection && document.createRange) {
-        var sel = window.getSelection();
-        var range = document.createRange();
+        let sel = window.getSelection();
+        let range = document.createRange();
         range.selectNodeContents(el);
         sel.removeAllRanges();
         sel.addRange(range);
     } else if (document.selection && document.body.createTextRange) {
-        var textRange = document.body.createTextRange();
+        let textRange = document.body.createTextRange();
         textRange.moveToElementText(el);
         textRange.select();
     }
-}
-function Utils(){
-    this.makeid = function(){
-
-    }
-    return
 }
