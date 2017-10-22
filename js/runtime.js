@@ -8,6 +8,19 @@ function makeid() {
 
   return text;
 }
+function selectElementContents(el) {
+    if (window.getSelection && document.createRange) {
+        var sel = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(el);
+        sel.removeAllRanges();
+        sel.addRange(range);
+    } else if (document.selection && document.body.createTextRange) {
+        var textRange = document.body.createTextRange();
+        textRange.moveToElementText(el);
+        textRange.select();
+    }
+}
 var host = "https://diffyheart.herokuapp.com:443/";
 (function () {
 	function loadCss(filename, filetype)

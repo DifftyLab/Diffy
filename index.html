@@ -8,8 +8,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<link href="https://diffyheart.github.io/favicon.ico" rel="icon" type="image/x-icon">
-		<link href="https://diffyheart.github.io/favicon.ico" rel="shortcut icon" type="image/x-icon">
+		<link href="https://diffyheart.github.io/img/favicon.ico" rel="icon" type="image/x-icon">
+		<link href="https://diffyheart.github.io/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
 	</head>
 	<body>
 		<div class="container">
@@ -17,16 +17,23 @@
 				<nav>
 					<ul class="nav nav-pills float-right">
 						<div class="form-inline my-2 my-lg-0">
-							<input name="roomid" class="form-control mr-sm-2" minlength="5" maxlength="5" placeholder="Room ID" aria-label="Search" type="text">
-							<button name="submitroomid" class="btn btn-primary my-2 my-sm-0" type="submit" disabled>Join <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+							<div class="input-group">
+								<input name="roomid" class="form-control mr-sm-1" minlength="5" maxlength="5" placeholder="Room ID" aria-label="Search" type="text">
+								<span class="input-group-btn">
+									<button name="submitroomid" class="btn btn-primary my-2 my-sm-0" type="submit" disabled>Join <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+								</span>
+							</div>
 						</div>
 					</ul>
 				</nav>
 				<h3 class="text-muted">Diffy <font style="color: #EB5E28;">&hearts;</font></h3>
 			</header>
 			<main role="main">
-				<div class="alert alert-secondary" role="alert">
-					Your room: AaAaA, or <a href="#">link</a>
+				<div class="alert alert-secondary alert-dismissible fade show" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				 		<span aria-hidden="true">&times;</span>
+					</button>
+					Room ID: <strong onclick="selectElementContents(this)">AaAaA</strong>, or <a href="#">link</a>
 				</div>
 				<div class="jumbotron">
 					<h1 class="display-3">Jumbotron heading</h1>
