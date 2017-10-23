@@ -59,11 +59,18 @@ var host = "https://diffyheart.herokuapp.com:443/";
 						});
 						$("button[name='submitroomid']").click(function(){
 							sock.checkPresence($("input[name='roomid']").val(), function(isRoomEists, roomid) {
+								$("input[name='roomid']").addClass('m-progress');
+								$("input[name='roomid']").addClass('disabled');
 								if(!isRoomEists) {
 									alert("La room n'éxiste pas !");
+									$("input[name='roomid']").removeClass('m-progress');
+									$("input[name='roomid']").removeClass('disabled');
+									return;
 								}
 								history.pushState(history.state, null, "#" + roomid);
 								sock.join(roomid);
+								$("input[name='roomid']").removeClass('m-progress');
+								$("input[name='roomid']").removeClass('disabled');
 							});
 						});
 					});
