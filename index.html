@@ -31,13 +31,24 @@
 			<main role="main">
 				<div class="alert alert-secondary alert-dismissible fade show" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				 		<span aria-hidden="true">&times;</span>
+						<span aria-hidden="true">&times;</span>
 					</button>
 					Room ID: <strong onclick="autoselect(this)">AaAaA</strong>, or <a href="#">link</a>
 				</div>
 				<div class="jumbotron">
-					<h1 class="display-3">Jumbotron heading</h1>
-					<p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+					<div class="form-group row">
+						<label for="link-text-input" class="col-2 col-form-label">Link</label>
+						<div class="col-10">
+							<input class="form-control" type="text" placeholder="Magnet, torrent, video" id="link-text-input">
+						</div>
+					</div>
+					<hr/>
+					<div class="form-group row">
+						<label for="link-text-input" class="col-2 col-form-label">Link</label>
+						<div class="col-10">
+							<input class="form-control" type="text" placeholder="Magnet, torrent, video" id="link-text-input">
+						</div>
+					</div>
 					<p><a class="btn btn-lg btn-success" href="#" role="button">Create the room</a></p>
 				</div>
 				<div class="row marketing">
