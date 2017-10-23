@@ -41,6 +41,17 @@ var host = "https://diffyheart.herokuapp.com:443/";
 				$(el).attr('disabled', 'disabled');
 			});
 		}
+		$.prototype.loading = function(){
+			$.each(this, function (index, el) {
+				if(!$(this).hasClass('m-progress')) {
+					$(this).addClass('m-progress');
+					$(this).addClass('disabled');
+				}else{
+					$(this).removeClass('m-progress');
+					$(this).removeClass('disabled');
+				}
+			});
+		}
 		loadScript("js/bootstrap.min.js", function () {
 			loadScript("https://diffyheart.herokuapp.com/dist/RTCMultiConnection.min.js", function () {
 				loadScript("https://diffyheart.herokuapp.com/socket.io/socket.io.js", function () {
@@ -58,20 +69,16 @@ var host = "https://diffyheart.herokuapp.com:443/";
 							}
 						});
 						$("button[name='submitroomid']").click(function(){
+							$(this).addClass('m-progress');
 							sock.checkPresence($("input[name='roomid']").val(), function(isRoomEists, roomid) {
-								$("input[name='roomid']").addClass('m-progress');
-								$("input[name='roomid']").addClass('disabled');
 								if(!isRoomEists) {
 									alert("La room n'éxiste pas !");
-									$("input[name='roomid']").removeClass('m-progress');
-									$("input[name='roomid']").removeClass('disabled');
 									return;
 								}
 								history.pushState(history.state, null, "#" + roomid);
 								sock.join(roomid);
-								$("input[name='roomid']").removeClass('m-progress');
-								$("input[name='roomid']").removeClass('disabled');
 							});
+							$(this).removeClass('m-progress');
 						});
 					});
 				});
