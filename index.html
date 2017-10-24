@@ -17,11 +17,11 @@
 				<nav>
 					<ul class="nav nav-pills float-right">
 						<div class="form-inline my-2 my-lg-0">
-                    	<div class="input-group">
-                        	<input id="roomid" type="text" class="form-control input-sm" minlength="5" maxlength="5" placeholder="Room ID" />
-                        	<span class="input-group-btn">
-                        		<button id="submitroomid" class="btn btn-primary" disabled="">Join</button>
-                        	</span>
+						<div class="input-group">
+							<input id="roomid" type="text" class="form-control" minlength="5" maxlength="5" placeholder="Room ID" />
+							<span class="input-group-btn">
+								<button id="submitroomid" class="btn btn-primary" disabled="">Join</button>
+							</span>
 						</div>
 					</ul>
 				</nav>
@@ -38,16 +38,23 @@
 					<p><a class="btn btn-success btn-lg btn-block" href="#" role="button">Choose a movie</a></p>
 					<hr/>
 					<div class="form-group row">
-						<label class="col-2 col-form-label">Seed</label>
+						<label class="col-2 col-form-label">Seed/File</label>
 						<div class="col-10">
-							
+							<div class="input-group">
+								<input id="filename" type="text" class="form-control" placeholder="File accepted ex. Torrent, video&hellip;" readonly="" />
+								<span class="input-group-btn">
+									<label class="btn btn-primary">
+										Browse&hellip; <input accept=".torrent,video/*" type="file" style="display: none;">
+									</label>
+								</span>
+							</div>
 						</div>
 					</div>
 					<hr/>
 					<div class="form-group row">
 						<label for="link-text-input" class="col-2 col-form-label">Link</label>
 						<div class="col-10">
-							<input class="form-control" type="text" placeholder="Magnet, torrent, video" id="link-text-input">
+							<input class="form-control" type="text" placeholder="Magnet, video&hellip;" id="link-text-input">
 						</div>
 					</div>
 					<p><a class="btn btn-lg btn-secondary" href="#" role="button">Create the room</a></p>
