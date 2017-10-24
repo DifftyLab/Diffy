@@ -88,9 +88,8 @@ var connection = null;
 						connection.onmessage = function(event) {
 							alert(event.userid + ' said: ' + event.data);
 						};
-						loadScript("js/tilt.jquery.js", function(){
-
-						});
+						loadScript("js/tilt.jquery.js", function(){});
+						loadScript("js/bootbox.min.js", function(){});
 					});
 				});
 			});	
