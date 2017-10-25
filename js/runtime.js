@@ -1,5 +1,6 @@
 
 var MEDIA_EXT = ['mp4', 'm4v', 'm4v', 'webm', 'm4a', 'mp3', 'wav', 'aac', 'ogg', 'oga'];
+var gun = Gun('https://db-diffyheart.herokuapp.com/gun');
 
 var connection = null;
 (function () {
@@ -72,13 +73,11 @@ var connection = null;
 							submitroomid.disable();
 							roomid.disable();
 							connection.checkPresence(roomid.val(), function(isRoomExists, room) {
-								console.log(isRoomExists + " -> " + room);
 								if(!isRoomExists) {
 									alert("La room n'éxiste pas !");
 								}else{
 									history.pushState(history.state, null, "#" + room);
 									connection.join(room);
-									alert("My ID : " + connection .sessionid);
 								}
 								submitroomid.removeClass("m-progress");
 								submitroomid.enable();
@@ -94,23 +93,9 @@ var connection = null;
 								perspective: 500
 							});
 						});
-						loadScript("js/bootbox.min.js", function(){
+						loadScript("js/gun.min.js", function(){
 							$("#choosemovie").click(function(){
-    bootbox.confirm({
-        title: "Destroy planet?",
-        message: "Do you want to activate the Deathstar now? This cannot be undone.",
-        buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> Cancel'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Confirm'
-            }
-        },
-        callback: function (result) {
-            console.log('This was logged in the callback: ' + result);
-        }
-    });
+
 							});
 						});
 					});
