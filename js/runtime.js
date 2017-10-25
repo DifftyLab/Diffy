@@ -1,6 +1,5 @@
 
 var MEDIA_EXT = ['mp4', 'm4v', 'm4v', 'webm', 'm4a', 'mp3', 'wav', 'aac', 'ogg', 'oga'];
-var gun = Gun('https://db-diffyheart.herokuapp.com/gun');
 
 var connection = null;
 (function () {
@@ -95,7 +94,7 @@ var connection = null;
 						});
 						loadScript("js/gun.min.js", function(){
 							$("#choosemovie").click(function(){
-
+								var gun = Gun('https://db-diffyheart.herokuapp.com/gun');
 							});
 						});
 					});
