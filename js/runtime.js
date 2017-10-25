@@ -49,6 +49,7 @@ var connection = null;
 				loadScript("https://diffyheart.herokuapp.com:443/dist/RTCMultiConnection.js", function () {
 					loadScript("js/webtorrent.min.js", function () {
 						loadScript("js/utils.js", function () {
+							var client = new WebTorrent();
 							connection = new RTCMultiConnection();
 							connection.socketURL = 'https://diffyheart.herokuapp.com:443/';
 							connection.session = {
