@@ -47,54 +47,56 @@ var connection = null;
 		loadScript("js/bootstrap.min.js", function () {
 			loadScript("https://diffyheart.herokuapp.com:443/socket.io/socket.io.js", function () {
 				loadScript("https://diffyheart.herokuapp.com:443/dist/RTCMultiConnection.js", function () {
-					loadScript("js/utils.js", function () {
-						connection = new RTCMultiConnection();
-						connection.socketURL = 'https://diffyheart.herokuapp.com:443/';
-						connection.session = {
-							data: true
-						};
-						connection.sdpConstraints.mandatory = {
-							OfferToReceiveAudio: false,
-							OfferToReceiveVideo: false
-						};
-						//connection.iceServers.push(stunlist);
-						var roomid = $("#roomid");
-						var submitroomid = $("#submitroomid");
-						roomid.keyup(function() {
-							if(roomid.val().length == 5){
-								submitroomid.enable();
-							}else{
-								submitroomid.disable();
-							}
-						});
-						submitroomid.click(function(){
-							submitroomid.addClass("m-progress");
-							submitroomid.disable();
-							roomid.disable();
-							connection.checkPresence(roomid.val(), function(isRoomExists, room) {
-								if(!isRoomExists) {
-									alert("La room n'éxiste pas !");
+					loadScript("js/webtorrent.min.js", function () {
+						loadScript("js/utils.js", function () {
+							connection = new RTCMultiConnection();
+							connection.socketURL = 'https://diffyheart.herokuapp.com:443/';
+							connection.session = {
+								data: true
+							};
+							connection.sdpConstraints.mandatory = {
+								OfferToReceiveAudio: false,
+								OfferToReceiveVideo: false
+							};
+							//connection.iceServers.push(stunlist);
+							var roomid = $("#roomid");
+							var submitroomid = $("#submitroomid");
+							roomid.keyup(function() {
+								if(roomid.val().length == 5){
+									submitroomid.enable();
 								}else{
-									history.pushState(history.state, null, "#" + room);
-									connection.join(room);
+									submitroomid.disable();
 								}
-								submitroomid.removeClass("m-progress");
-								submitroomid.enable();
-								roomid.enable();
 							});
-						});
-						connection.onmessage = function(event) {
-							alert(event.userid + ' said: ' + event.data);
-						};
-						loadScript("js/tilt.jquery.js", function(){
-							$('.tilt-poster').tilt({
-								scale: 1.05,
-								perspective: 500
+							submitroomid.click(function(){
+								submitroomid.addClass("m-progress");
+								submitroomid.disable();
+								roomid.disable();
+								connection.checkPresence(roomid.val(), function(isRoomExists, room) {
+									if(!isRoomExists) {
+										alert("La room n'éxiste pas !");
+									}else{
+										history.pushState(history.state, null, "#" + room);
+										connection.join(room);
+									}
+									submitroomid.removeClass("m-progress");
+									submitroomid.enable();
+									roomid.enable();
+								});
 							});
-						});
-						loadScript("js/gun.min.js", function(){
-							$("#choosemovie").click(function(){
-								var gun = Gun('https://db-diffyheart.herokuapp.com/gun');
+							connection.onmessage = function(event) {
+								alert(event.userid + ' said: ' + event.data);
+							};
+							loadScript("js/tilt.jquery.js", function(){
+								$('.tilt-poster').tilt({
+									scale: 1.05,
+									perspective: 500
+								});
+							});
+							loadScript("js/gun.min.js", function(){
+								$("#choosemovie").click(function(){
+									var gun = Gun('https://db-diffyheart.herokuapp.com/gun');
+								});
 							});
 						});
 					});
