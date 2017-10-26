@@ -37,24 +37,26 @@
 				<div class="jumbotron">
 					<p><a id="choosemovie" class="btn btn-success btn-lg btn-block" href="#" role="button">Choose a movie</a></p>
 					<hr/>
-					<div class="form-group row">
-						<label class="col-2 col-form-label">Seed/File</label>
-						<div class="col-10">
-							<div class="input-group">
-								<input id="filename" type="text" class="form-control" placeholder="File accepted ex. Torrent, video&hellip;" readonly="" />
-								<span class="input-group-btn">
-									<label class="btn btn-primary">
-										Browse&hellip; <input id="fileselected" accept=".torrent,video/mp4,video/m4a,video/m4v" type="file" style="display: none;">
-									</label>
-								</span>
+					<form id="inputroom">
+						<div class="form-group row">
+							<label class="col-2 col-form-label">Seed/File</label>
+							<div class="col-10">
+								<div class="input-group">
+									<input id="filename" type="text" class="form-control" placeholder="File accepted ex. Torrent, video&hellip;" readonly="" />
+									<span class="input-group-btn">
+										<label class="btn btn-primary">
+											Browse&hellip; <input id="fileselected" accept=".torrent,video/mp4,video/m4a,video/m4v" type="file" style="display: none;">
+										</label>
+									</span>
+								</div>
 							</div>
 						</div>
-					</div>
+					</form>
 					<hr/>
 					<div class="form-group row">
 						<label for="link-text-input" class="col-2 col-form-label">Link</label>
 						<div class="col-10">
-							<input id="linkselected" class="form-control" type="text" placeholder="Magnet, video&hellip;" id="link-text-input">
+							<input id="linkselected" class="form-control" type="text" placeholder="Magnet, video&hellip;" pattern="(magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{32}|[http(s)?:\/\/[\S]+?\.(mp4|m4a|m4v))" id="link-text-input">
 						</div>
 					</div>
 					<p><button id="createroom" class="btn btn-lg btn-secondary" disabled>Create the room</button></p>

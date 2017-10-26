@@ -93,11 +93,23 @@ var tclient = null;
 
 									var playerstreaming = $("#streamingplayer");
 
-									roomid.keyup(function() {
+									roomid.change(function() {
 										if(roomid.val().length == 5){
 											submitroomid.enable();
 										}else{
 											submitroomid.disable();
+										}
+									});
+									fileselected.change(function(){
+										if(linkselected[0].length > 0){
+											console.log("LINK: reset");
+											document.getElementById("inputroom").reset();
+										}
+									});
+									linkselected.change(function(){
+										if(fileselected[0].files.length > 0){
+											console.log("FILE: reset");
+											document.getElementById("inputroom").reset(); 
 										}
 									});
 									submitroomid.click(function(){
