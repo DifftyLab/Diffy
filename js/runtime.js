@@ -1,5 +1,5 @@
 
-var MEDIA_EXT = ['mp4', 'm4v', 'm4v', 'webm', 'm4a', 'mp3', 'wav', 'aac', 'ogg', 'oga'];
+var MEDIA_EXT = ['mp4', 'webm', 'ogg'];
 
 var connection = null;
 (function () {
