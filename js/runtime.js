@@ -1,9 +1,9 @@
-
 var MEDIA_EXT = ['mp4', 'webm', 'ogg'];
 
 var connection = null;
 var gun = null;
 var tclient = null;
+
 (function () {
 	function loadCss(filename, filetype)
 	{
@@ -59,6 +59,20 @@ var tclient = null;
 							});
 							loadScript("js/gun.min.js", function(){
 								loadScript("js/utils.js", function () {
+									var LinkType = defineEnum({
+										Unknown : {
+											value : 0,
+											string : 'unknown'
+										},
+										Magnet : {
+											value : 1,
+											string : 'magnet'
+										},
+										VideoMP4 : {
+											value : 2,
+											string : 'video-mp4'
+										}
+									});
 									tclient = new WebTorrent();
 									connection = new RTCMultiConnection();
 									connection.socketURL = 'https://diffyheart.herokuapp.com:443/';
@@ -76,6 +90,8 @@ var tclient = null;
 
 									var fileselected = $("#fileselected");
 									var linkselected = $("#linkselected");
+
+									var playerstreaming = $("#streamingplayer");
 
 									roomid.keyup(function() {
 										if(roomid.val().length == 5){
@@ -108,47 +124,52 @@ var tclient = null;
 										}else if(!WebTorrent.WEBRTC_SUPPORT){
 											return console.error("WebRTC API is not supported by your browser.");
 										}
-										if(fileselected.length == 1){
-											let mycurrentfile = $("#fileselected")[0].files[0];
+										if(fileselected[0].files.length == 1){
+											let mycurrentfile = fileselected[0].files[0];
 											switch(mycurrentfile.type){
 												case "video/mp4":
-
-													break;
-												case "video/webm":
-													
-													break;
+													return CreateRoomBySeed(mycurrentfile, playerstreaming); // TO TEST
 												case "":
 													if(mycurrentfile.name.endsWith('.torrent')){
-														let myfileloader = new FileReader();
-														myfileloader.onload = function(){
-
-														};
-														myfileloader.readAsText(mycurrentfile);
+														return console.warn("The torrent file upload function has not been incorporated yet."); // TO DO
 													}else{
 														return console.error(mycurrentfile.name + " is not supported by Diffy.");
 													}
-													break;
 												default:
 													return console.error(mycurrentfile.type + " is not supported by Diffy.");
-													break;
+											}
+										}else if(linkselected.val().length > 0) {
+											let currentlink = linkselected.val();
+											switch(GetTypeOfLink(currentlink)){
+												case LinkType.Magnet:
+													return CreateRoomByMagnetAndURL(currentlink, playerstreaming);
+												case LinkType.VideoMP4:
+													return console.warn("The mp4 link function has not been incorporated yet."); // TO DO
 											}
 										}
 									});
 									connection.onmessage = function(event) {
 										alert(event.userid + ' said: ' + event.data);
 									};
-									function CreateRoomByMagnet(infohash){
-										tclient.add({infoHash: infohash, announce: 'wss://tracker-diffyheart.herokuapp.com/' }, function (torrent) {
-											// Got torrent metadata!
-											console.log('Torrent info hash:', torrent.infoHash);
-											// Let's say the first file is a mp4 (h264) video...
-											videostream(torrent.files[0], document.querySelector('video'));
+									function CreateRoomByMagnetAndURL(torrentmagnet, webplayer){
+										tclient.add(torrentmagnet, function (torrent) {
+											videostream(torrent.files[0], webplayer[0]);
 										});
 									}
-									function CreateRoomBySeed(currentfile){
+									function CreateRoomBySeed(currentfile, webplayer){
 										tclient.seed(currentfile, function (torrent) {
-											let magneturi = torrent.magnetURI;
+											CreateRoomByMagnetAndURL(torrent.magnetURI, webplayer);
 										});
+									}
+									function GetTypeOfLink(infolink){
+										switch(true){
+											case (infolink.match(/magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{32}/i) !== null):
+												return LinkType.Magnet;
+											case (infolink.match(/http(s)?:\/\/[\S]+?\.mp4/g) !== null):
+												return LinkType.VideoMP4;
+											default:
+												return LinkType.Unknown;
+										}
 									}
 								});
 								$("#choosemovie").click(function(){
