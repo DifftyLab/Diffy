@@ -2,6 +2,8 @@
 var MEDIA_EXT = ['mp4', 'webm', 'ogg'];
 
 var connection = null;
+var gun = null;
+var tclient = null;
 (function () {
 	function loadCss(filename, filetype)
 	{
@@ -48,46 +50,7 @@ var connection = null;
 			loadScript("https://diffyheart.herokuapp.com:443/socket.io/socket.io.js", function () {
 				loadScript("https://diffyheart.herokuapp.com:443/dist/RTCMultiConnection.js", function () {
 					loadScript("js/webtorrent.min.js", function () {
-						loadScript("js/utils.js", function () {
-							var client = new WebTorrent();
-							connection = new RTCMultiConnection();
-							connection.socketURL = 'https://diffyheart.herokuapp.com:443/';
-							connection.session = {
-								data: true
-							};
-							connection.sdpConstraints.mandatory = {
-								OfferToReceiveAudio: false,
-								OfferToReceiveVideo: false
-							};
-							//connection.iceServers.push(stunlist);
-							var roomid = $("#roomid");
-							var submitroomid = $("#submitroomid");
-							roomid.keyup(function() {
-								if(roomid.val().length == 5){
-									submitroomid.enable();
-								}else{
-									submitroomid.disable();
-								}
-							});
-							submitroomid.click(function(){
-								submitroomid.addClass("m-progress");
-								submitroomid.disable();
-								roomid.disable();
-								connection.checkPresence(roomid.val(), function(isRoomExists, room) {
-									if(!isRoomExists) {
-										alert("La room n'éxiste pas !");
-									}else{
-										history.pushState(history.state, null, "#" + room);
-										connection.join(room);
-									}
-									submitroomid.removeClass("m-progress");
-									submitroomid.enable();
-									roomid.enable();
-								});
-							});
-							connection.onmessage = function(event) {
-								alert(event.userid + ' said: ' + event.data);
-							};
+						loadScript("js/VideoStream.min.js", function () {
 							loadScript("js/tilt.jquery.js", function(){
 								$('.tilt-poster').tilt({
 									scale: 1.05,
@@ -95,8 +58,101 @@ var connection = null;
 								});
 							});
 							loadScript("js/gun.min.js", function(){
+								loadScript("js/utils.js", function () {
+									tclient = new WebTorrent();
+									connection = new RTCMultiConnection();
+									connection.socketURL = 'https://diffyheart.herokuapp.com:443/';
+									connection.session = {
+										data: true
+									};
+									connection.sdpConstraints.mandatory = {
+										OfferToReceiveAudio: false,
+										OfferToReceiveVideo: false
+									};
+									//connection.iceServers.push(stunlist);
+									var roomid = $("#roomid");
+									var submitroomid = $("#submitroomid");
+									var createroom = $("#createroom");
+
+									var fileselected = $("#fileselected");
+									var linkselected = $("#linkselected");
+
+									roomid.keyup(function() {
+										if(roomid.val().length == 5){
+											submitroomid.enable();
+										}else{
+											submitroomid.disable();
+										}
+									});
+									submitroomid.click(function(){
+										submitroomid.addClass("m-progress");
+										submitroomid.disable();
+										roomid.disable();
+										connection.checkPresence(roomid.val(), function(isRoomExists, room) {
+											if(!isRoomExists) {
+												alert("La room n'éxiste pas !");
+											}else{
+												history.pushState(history.state, null, "#" + room);
+												connection.join(room);
+											}
+											submitroomid.removeClass("m-progress");
+											submitroomid.enable();
+											roomid.enable();
+										});
+									});
+									createroom.click(function(){
+										if(!window.FileReader){
+											return console.error("FileReader API is not supported by your browser.");
+										}else if(!window.Blob){
+											return console.error("Blob API is not supported by your browser.");
+										}else if(!WebTorrent.WEBRTC_SUPPORT){
+											return console.error("WebRTC API is not supported by your browser.");
+										}
+										if(fileselected.length == 1){
+											let mycurrentfile = $("#fileselected")[0].files[0];
+											switch(mycurrentfile.type){
+												case "video/mp4":
+
+													break;
+												case "video/webm":
+													
+													break;
+												case "":
+													if(mycurrentfile.name.endsWith('.torrent')){
+														let myfileloader = new FileReader();
+														myfileloader.onload = function(){
+
+														};
+														myfileloader.readAsText(mycurrentfile);
+													}else{
+														return console.error(mycurrentfile.name + " is not supported by Diffy.");
+													}
+													break;
+												default:
+													return console.error(mycurrentfile.type + " is not supported by Diffy.");
+													break;
+											}
+										}
+									});
+									connection.onmessage = function(event) {
+										alert(event.userid + ' said: ' + event.data);
+									};
+									function CreateRoomByMagnet(infohash){
+										tclient.add({infoHash: infohash, announce: 'wss://tracker-diffyheart.herokuapp.com/' }, function (torrent) {
+											// Got torrent metadata!
+											console.log('Torrent info hash:', torrent.infoHash);
+											// Let's say the first file is a mp4 (h264) video...
+											videostream(torrent.files[0], document.querySelector('video'));
+										});
+									}
+									function CreateRoomBySeed(currentfile){
+										tclient.seed(currentfile, function (torrent) {
+											let magneturi = torrent.magnetURI;
+										});
+									}
+								});
 								$("#choosemovie").click(function(){
-									var gun = Gun('https://db-diffyheart.herokuapp.com/gun');
+									gun = Gun('https://db-diffyheart.herokuapp.com/gun');
 								});
 							});
 						});

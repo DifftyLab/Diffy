@@ -44,7 +44,7 @@
 								<input id="filename" type="text" class="form-control" placeholder="File accepted ex. Torrent, video&hellip;" readonly="" />
 								<span class="input-group-btn">
 									<label class="btn btn-primary">
-										Browse&hellip; <input accept=".torrent,video/webm,video/mp4,video/ogg" type="file" style="display: none;">
+										Browse&hellip; <input id="fileselected" accept=".torrent,video/mp4,video/m4a,video/m4v" type="file" style="display: none;">
 									</label>
 								</span>
 							</div>
@@ -54,10 +54,10 @@
 					<div class="form-group row">
 						<label for="link-text-input" class="col-2 col-form-label">Link</label>
 						<div class="col-10">
-							<input class="form-control" type="text" placeholder="Magnet, video&hellip;" id="link-text-input">
+							<input id="linkselected" class="form-control" type="text" placeholder="Magnet, video&hellip;" id="link-text-input">
 						</div>
 					</div>
-					<p><a class="btn btn-lg btn-secondary" href="#" role="button">Create the room</a></p>
+					<p><button id="createroom" class="btn btn-lg btn-secondary" disabled>Create the room</button></p>
 				</div>
 				<div class="row marketing">
 					<div class="col-lg-6">
