@@ -115,9 +115,12 @@ var clientjs = null;
 															// do things
 														}
 													});*/
-													roomid.keypress(function() {
+													roomid.keypress(function(event) {
 														if(roomid.val().length == 5){
 															submitroomid.enable();
+															if(event.which == 13){
+																submitroomid.click();
+															}
 														}else{
 															submitroomid.disable();
 														}
