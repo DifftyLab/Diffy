@@ -163,7 +163,8 @@ var clientjs = null;
 															return CreateRoomBySeed(mycurrentfile, playerstreaming); // TO TEST
 														case "":
 															if(mycurrentfile.name.endsWith('.torrent')){
-																return console.warn("The torrent file upload function has not been incorporated yet."); // TO DO
+																return CreateRoomByMagnetAndURL(mycurrentfile, playerstreaming);
+																//return console.warn("The torrent file upload function has not been incorporated yet."); // TO DO
 															}else{
 																return console.error(mycurrentfile.name + " is not supported by Diffy.");
 															}
@@ -223,7 +224,7 @@ var clientjs = null;
 														history.pushState(history.state, null, "#" + nowroom);
 														createroomdesign.hide( "slow", function() {});
 														roomdesign.show(500);
-														maindesign.prepend("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">" + nowroom + "</strong>, or <a href=\"# " + nowroom +"\" class=\"alert-link\">#" + nowroom + "</a></div>").show(1000);
+														maindesign.prepend("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">" + nowroom + "</strong>, or <a href=\"#" + nowroom +"\" class=\"alert-link\">Link</a></div>").show(1000);
 														VideoStream(file, webplayer[0]);
 														setInterval(function(){numpeers.html(torrent.numPeers)}, 500);
 													}else{
