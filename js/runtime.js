@@ -33,6 +33,12 @@ var clientjs = null;
 	loadCss("css/bootstrap.min.css");
 	loadCss("css/style.css");
 	loadCss("player/mediaelementplayer.min.css");
+	loadScript("https://www.googletagmanager.com/gtag/js?id=UA-108834973-1", function(){
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'UA-108834973-1');
+	});
 	loadScript("js/jquery-3.2.1.min.js", function () {
 		loadScript("js/bootstrap.min.js", function () {
 			loadScript("https://diffyheart.herokuapp.com:443/socket.io/socket.io.js", function () {
