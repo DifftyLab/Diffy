@@ -205,7 +205,7 @@ var clientjs = null;
 											function CreateRoomByMagnetAndURL(torrentmagnet, webplayer){
 												createroomdesign.hide( "slow", function() {});
 												roomdesign.show(500);
-												maindesign.prepend("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">AaAaA</strong>, or <a href=\"#\" class=\"alert-link\">link</a></div>");
+												maindesign.prepend("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">AaAaA</strong>, or <a href=\"#\" class=\"alert-link\">link</a></div>").show(1000);
 												tclient.add(torrentmagnet, function (torrent) {
 													VideoStream(torrent.files[0], webplayer[0]);
 												});
