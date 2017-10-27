@@ -97,6 +97,7 @@ var clientjs = null;
 											var playerstreaming = $("#streamingplayer");
 											var inputchatbox = $('#chat-input');
 											var livechatbox = $('#chat-output');
+											/*
 											playerstreaming.mediaelementplayer({
 												stretching: "responsive",
 												pluginPath: "player/",
@@ -105,7 +106,7 @@ var clientjs = null;
 												success: function(mediaElement, originalNode, instance) {
 													// do things
 												}
-											});
+											});*/
 											roomid.keypress(function() {
 												if(roomid.val().length == 5){
 													submitroomid.enable();
@@ -200,8 +201,9 @@ var clientjs = null;
 											function CreateRoomByMagnetAndURL(torrentmagnet, webplayer){
 												$( "#createroomdesign" ).hide( "slow", function() {});
 												$( "#roomdesign" ).show(500);
+												$("main[role='']").append("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">AaAaA</strong>, or <a href=\"#\" class=\"alert-link\">link</a></div>");
 												tclient.add(torrentmagnet, function (torrent) {
-													VideoStream(torrent.files[0], webplayer);
+													VideoStream(torrent.files[0], webplayer[0]);
 												});
 											}
 											function CreateRoomBySeed(currentfile, webplayer){ // TODO Deprecated
