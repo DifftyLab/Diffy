@@ -187,36 +187,38 @@ var clientjs = null;
 												}
 											});
 											channel.onmessage = function(event) {
-												switch(event.data["type"]){
-													case "message":
-														AddChatBox(event.userid, event.data["data"]);
-														break;
+												if(event.data.length == 2){
+													switch(event.data["type"]){
+														case "message":
+															AddChatBox(event.userid, event.data["data"]);
+															break;
+													}
 												}
 											};
 											function SendMessage(message){
 												channel.send({'type':'message', 'data':message});
 											}
 											function AddChatBox(userid,msg){
-												let line = $('<li class="list-group-item"><strong>' + userid + ':</strong> </span>');
-												let message = $('<span class="text" />').text(msg).html();
+												let line = $('<li class="list-group-item"><strong>' + escapeHtml(userid) + ':</strong> </span>');
+												let message = $('<span class="text" />').text(escapeHtml(msg)).html();
 												line.append(message);
 												livechatbox.append(line).fadeIn(1000);
 												livechatbox.scrollTop(livechatbox[0].scrollHeight);
 											}
 											function CreateRoomByMagnetAndURL(torrentmagnet, webplayer){
-												var rooomid = makeid();
-												channel.open(roomid);
-												history.pushState(history.state, null, "#" + roomid);
+												var nowroom = makeid();
+												channel.open(nowroom);
+												history.pushState(history.state, null, "#" + nowroom);
 												createroomdesign.hide( "slow", function() {});
 												roomdesign.show(500);
-												maindesign.prepend("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">AaAaA</strong>, or <a href=\"#\" class=\"alert-link\">link</a></div>").show(1000);
+												maindesign.prepend("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">" + nowroom + "</strong>, or <a href=\"# " + nowroom +"\" class=\"alert-link\">#" + nowroom + "</a></div>").show(1000);
 												tclient.add(torrentmagnet, function (torrent) {
 													VideoStream(torrent.files[0], webplayer[0]);
 													setInterval(function(){numpeers.html(torrent.numPeers)}, 500);
 												});
 											}
-											function JoinRoomByID(roomid){
-												
+											function JoinRoomByID(nowroom){
+
 											}
 											function CreateRoomBySeed(currentfile, webplayer){ // TODO Deprecated
 												tclient.seed(currentfile, function (torrent) {
