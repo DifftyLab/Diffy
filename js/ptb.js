@@ -32897,7 +32897,7 @@ module.exports = function required(port, protocol) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return (0, _isomorphicFetch2.default)('https://proxybay.tv/').then(function (res) {
+              return (0, _isomorphicFetch2.default)('https://proxybay.one/').then(function (res) {
                 return res.text();
               });
 
@@ -32941,7 +32941,7 @@ module.exports = function required(port, protocol) {
               case 0:
                 if (error) console.log(error);
 
-                proxyUrls = ['https://thepiratebay.org', 'https://thepiratebay.se', 'https://pirateproxy.one', 'https://ahoy.one'];
+                proxyUrls = ['https://thepiratebay.org', 'https://thepiratebay.se', 'https://pirateproxy.one', 'https://ahoy.one', 'https://pirateproxy.cam', 'https://thepiratebay.red', 'https://thehiddenbay.cc', 'https://piratebayblocked.com'];
                 options = {
                   mode: 'no-cors',
                   method: method,
