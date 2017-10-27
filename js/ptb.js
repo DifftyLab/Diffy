@@ -32971,7 +32971,7 @@ module.exports = function required(port, protocol) {
                   }
                   var indexedRequests = requests.map(function (p, index) {
                     return p.catch(function () {
-                      throw index;
+                      //throw index;
                     });
                   });
                   return _promise2.default.race(indexedRequests).catch(function (index) {
