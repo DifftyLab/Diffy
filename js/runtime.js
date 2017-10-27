@@ -102,6 +102,7 @@ var clientjs = null;
 											var roomdesign = $('#roomdesign');
 											var maindesign = $('main[role=\'main\']');
 											var numpeers = $('span#numpeers');
+											var numconnected = $('span#numconnected');
 											/*
 											playerstreaming.mediaelementplayer({
 												stretching: "responsive",
@@ -182,18 +183,24 @@ var clientjs = null;
 											inputchatbox.keypress(function(event){
 												if(event.which == 13){
 													SendMessage(inputchatbox.val());
-													AddChatBox(channel.userid, inputchatbox.val());
+													AddChatBox("You", inputchatbox.val());
 													inputchatbox.val('');
 												}
 											});
 											channel.onmessage = function(event) {
-												if(event.data.length == 2){
-													switch(event.data["type"]){
-														case "message":
+												console.log(event.isInitiator);
+												switch(event.data["type"]){
+													case "message":
+														if(event.isInitiator){
+															AddChatBox("Owner", event.data["data"]);
+														}else{
 															AddChatBox(event.userid, event.data["data"]);
-															break;
-													}
+														}
+														break;
 												}
+											};
+											channel.onUserStatusChanged = function(status){
+												numconnected.text(channel.peers.getLength());
 											};
 											function SendMessage(message){
 												channel.send({'type':'message', 'data':message});
@@ -206,15 +213,23 @@ var clientjs = null;
 												livechatbox.scrollTop(livechatbox[0].scrollHeight);
 											}
 											function CreateRoomByMagnetAndURL(torrentmagnet, webplayer){
-												var nowroom = makeid();
-												channel.open(nowroom);
-												history.pushState(history.state, null, "#" + nowroom);
-												createroomdesign.hide( "slow", function() {});
-												roomdesign.show(500);
-												maindesign.prepend("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">" + nowroom + "</strong>, or <a href=\"# " + nowroom +"\" class=\"alert-link\">#" + nowroom + "</a></div>").show(1000);
 												tclient.add(torrentmagnet, function (torrent) {
-													VideoStream(torrent.files[0], webplayer[0]);
-													setInterval(function(){numpeers.html(torrent.numPeers)}, 500);
+													var file = torrent.files.find(function (file) {
+														return file.name.endsWith('.mp4')
+													});
+													if(file){
+														var nowroom = makeid();
+														channel.open(nowroom);
+														history.pushState(history.state, null, "#" + nowroom);
+														createroomdesign.hide( "slow", function() {});
+														roomdesign.show(500);
+														maindesign.prepend("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">" + nowroom + "</strong>, or <a href=\"# " + nowroom +"\" class=\"alert-link\">#" + nowroom + "</a></div>").show(1000);
+														VideoStream(file, webplayer[0]);
+														setInterval(function(){numpeers.html(torrent.numPeers)}, 500);
+													}else{
+														torrent.destroy();
+														return console.error("This torrent is not compatible (only mp4).");
+													}
 												});
 											}
 											function JoinRoomByID(nowroom){
