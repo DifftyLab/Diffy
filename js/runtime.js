@@ -209,9 +209,9 @@ var clientjs = null;
 													}
 													function AddChatBox(userid,msg){
 														let line = $('<li class="list-group-item"><strong>' + escapeHtml(userid) + ':</strong> </span>');
-														let message = $('<span class="text" />').text(escapeHtml(msg)).html();
+														let message = $('<span class="text" />').text(msg).html();
 														line.append(message);
-														livechatbox.append(line).fadeIn(1000);
+														livechatbox.append(line.emoji()).fadeIn(1000);
 														livechatbox.scrollTop(livechatbox[0].scrollHeight);
 													}
 													function CreateRoomByMagnetAndURL(torrentfile, webplayer){
