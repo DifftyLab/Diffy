@@ -235,9 +235,9 @@ var clientjs = null;
 												roomdesign.show(500);
 												maindesign.prepend("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">" + room + "</strong>, or <a href=\"#" + room +"\" class=\"alert-link\">Link</a></div>").show(1000);
 											}
-											function JoinRoomByID(nowroom){
+											function JoinRoomByID(room){
 												channel.join(room);
-												InitDesignToRoom(nowroom);
+												InitDesignToRoom(room);
 											}
 											function CreateRoomBySeed(currentfile, webplayer){ // TODO Deprecated
 												tclient.seed(currentfile, function (torrent) {
