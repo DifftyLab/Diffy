@@ -97,6 +97,10 @@ var clientjs = null;
 											var playerstreaming = $("#streamingplayer");
 											var inputchatbox = $('#chat-input');
 											var livechatbox = $('#chat-output');
+
+											var createroomdesign = $('#createroomdesign');
+											var roomdesign = $('#roomdesign');
+
 											/*
 											playerstreaming.mediaelementplayer({
 												stretching: "responsive",
@@ -199,9 +203,9 @@ var clientjs = null;
 												livechatbox.scrollTop(livechatbox[0].scrollHeight);
 											}
 											function CreateRoomByMagnetAndURL(torrentmagnet, webplayer){
-												$( "#createroomdesign" ).hide( "slow", function() {});
-												$( "#roomdesign" ).show(500);
-												$("main[role='']").append("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">AaAaA</strong>, or <a href=\"#\" class=\"alert-link\">link</a></div>");
+												createroomdesign.hide( "slow", function() {});
+												roomdesign.show(500);
+												$("main[role='main']").append("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">AaAaA</strong>, or <a href=\"#\" class=\"alert-link\">link</a></div>");
 												tclient.add(torrentmagnet, function (torrent) {
 													VideoStream(torrent.files[0], webplayer[0]);
 												});
