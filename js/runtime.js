@@ -101,6 +101,7 @@ var clientjs = null;
 											var createroomdesign = $('#createroomdesign');
 											var roomdesign = $('#roomdesign');
 											var maindesign = $('main[role=\'main\']');
+											var numpeers = $('#numpeers');
 											/*
 											playerstreaming.mediaelementplayer({
 												stretching: "responsive",
@@ -208,6 +209,9 @@ var clientjs = null;
 												maindesign.prepend("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">AaAaA</strong>, or <a href=\"#\" class=\"alert-link\">link</a></div>").show(1000);
 												tclient.add(torrentmagnet, function (torrent) {
 													VideoStream(torrent.files[0], webplayer[0]);
+													setInterval(function(){
+														numpeers.val(torrent.numPeers);
+													}, 500)
 												});
 											}
 											function CreateRoomBySeed(currentfile, webplayer){ // TODO Deprecated
