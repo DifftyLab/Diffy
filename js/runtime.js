@@ -101,7 +101,7 @@ var clientjs = null;
 											var createroomdesign = $('#createroomdesign');
 											var roomdesign = $('#roomdesign');
 											var maindesign = $('main[role=\'main\']');
-											var numpeers = $('#numpeers');
+											var numpeers = $('span#numpeers');
 											/*
 											playerstreaming.mediaelementplayer({
 												stretching: "responsive",
@@ -204,15 +204,19 @@ var clientjs = null;
 												livechatbox.scrollTop(livechatbox[0].scrollHeight);
 											}
 											function CreateRoomByMagnetAndURL(torrentmagnet, webplayer){
+												var rooomid = makeid();
+												channel.open(roomid);
+												history.pushState(history.state, null, "#" + roomid);
 												createroomdesign.hide( "slow", function() {});
 												roomdesign.show(500);
 												maindesign.prepend("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">AaAaA</strong>, or <a href=\"#\" class=\"alert-link\">link</a></div>").show(1000);
 												tclient.add(torrentmagnet, function (torrent) {
 													VideoStream(torrent.files[0], webplayer[0]);
-													setInterval(function(){
-														numpeers.val(torrent.numPeers);
-													}, 500)
+													setInterval(function(){numpeers.html(torrent.numPeers)}, 500);
 												});
+											}
+											function JoinRoomByID(roomid){
+												
 											}
 											function CreateRoomBySeed(currentfile, webplayer){ // TODO Deprecated
 												tclient.seed(currentfile, function (torrent) {
