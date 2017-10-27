@@ -96,7 +96,7 @@ var clientjs = null;
 														var playerstreaming = $('#streamingplayer');
 														var inputchatbox = $('#chat-input');
 														var livechatbox = $('#chat-output');
-
+														var sendmessagebtn = $('#msg-submit');
 														var createroomdesign = $('#createroomdesign');
 														var roomdesign = $('#roomdesign');
 														var maindesign = $('main[role=\'main\']');
@@ -186,10 +186,13 @@ var clientjs = null;
 														});
 														inputchatbox.keypress(function(event){
 															if(event.which == 13){
-																SendMessage(inputchatbox.val());
-																AddChatBox("You", inputchatbox.val());
-																inputchatbox.val('');
+																sendmessagebtn.click();
 															}
+														});
+														sendmessagebtn.click(function(){
+															SendMessage(inputchatbox.val());
+															AddChatBox("You", inputchatbox.val());
+															inputchatbox.val('');
 														});
 														channel.onmessage = function(event) {
 															console.log(event.isInitiator);
