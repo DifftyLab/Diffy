@@ -226,7 +226,7 @@ var player = null;
 																	var nowroom = makeid();
 																	channel.open(nowroom);
 																	InitDesignToRoom(nowroom);
-																	VideoStream(file, webplayer[0]);
+																	VideoStream(file, player.media);
 																	setInterval(function(){numpeers.html(torrent.numPeers)}, 500);
 																}else{
 																	torrent.destroy();
