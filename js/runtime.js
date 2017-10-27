@@ -138,6 +138,7 @@ var player = null;
 																	alert("La room n'éxiste pas !");
 																	location.hash = "";
 																	roomid.val('');
+																	createroom.disable();
 																}else{
 																	JoinRoomByID(room);
 																}
