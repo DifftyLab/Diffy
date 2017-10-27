@@ -34,32 +34,58 @@
 					</button>
 					Room ID: <strong onclick="autoselect(this)">AaAaA</strong>, or <a href="#" class="alert-link">link</a>
 				</div>
-				<div class="jumbotron">
-					<p><a id="choosemovie" class="btn btn-success btn-lg btn-block" href="#" role="button">Choose a movie</a></p>
-					<hr/>
-					<form id="inputroom">
-						<div class="form-group row">
-							<label class="col-2 col-form-label">Seed/File</label>
-							<div class="col-10">
-								<div class="input-group">
-									<input id="filename" type="text" class="form-control" placeholder="File accepted ex. Torrent, video&hellip;" readonly="" />
-									<span class="input-group-btn">
-										<label class="btn btn-primary">
-											Browse&hellip; <input id="fileselected" accept=".torrent,video/mp4,video/m4a,video/m4v" type="file" style="display: none;">
-										</label>
-									</span>
+				<div id="createroomdesign">
+					<div class="jumbotron">
+						<p><a id="choosemovie" class="btn btn-success btn-lg btn-block" href="#" role="button">Choose a movie</a></p>
+						<hr/>
+						<form id="inputroom">
+							<div class="form-group row">
+								<label class="col-2 col-form-label">Seed/File</label>
+								<div class="col-10">
+									<div class="input-group">
+										<input id="filename" type="text" class="form-control" placeholder="File accepted ex. Torrent, video&hellip;" readonly="" />
+										<span class="input-group-btn">
+											<label class="btn btn-primary">
+												Browse&hellip; <input id="fileselected" accept=".torrent,video/mp4,video/m4a,video/m4v" type="file" style="display: none;">
+											</label>
+										</span>
+									</div>
 								</div>
 							</div>
+						</form>
+						<hr/>
+						<div class="form-group row">
+							<label for="link-text-input" class="col-2 col-form-label">Link</label>
+							<div class="col-10">
+								<input id="linkselected" class="form-control" type="text" placeholder="Magnet, video&hellip;" id="link-text-input"><!-- TODO: pattern="(magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{32}|http(s)?:\/\/[\S]+?\.(mp4|m4a|m4v))" -->
+							</div>
 						</div>
-					</form>
-					<hr/>
-					<div class="form-group row">
-						<label for="link-text-input" class="col-2 col-form-label">Link</label>
-						<div class="col-10">
-							<input id="linkselected" class="form-control" type="text" placeholder="Magnet, video&hellip;" id="link-text-input"><!-- TODO: pattern="(magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{32}|http(s)?:\/\/[\S]+?\.(mp4|m4a|m4v))" -->
+						<p><button id="createroom" class="btn btn-lg btn-secondary">Create the room</button></p>
+					</div>
+				</div>
+				<div id="roomdesign" style="display: none;">
+					<div class="card mb-3">
+						<div class="media-wrapper card-img-top">
+							<video id="streamingplayer" width="100%" height="100%" style="max-width:100%;" poster="http://www.mediaelementjs.com/images/big_buck_bunny.jpg" src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4" preload="none" controls playsinline webkit-playsinline></video>
+						</div>
+						<div class="card-body">
+							<h4 class="card-title">The Martian</h4>
+								<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+							<p class="card-text"><small class="text-muted">Peers : 0</small></p>
 						</div>
 					</div>
-					<p><button id="createroom" class="btn btn-lg btn-secondary" disabled>Create the room</button></p>
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Live Chat</h4>
+							<ul class="list-group" id="chat-output"></ul>
+							<div class="input-group">
+								<input type="text" class="form-control" id="chat-input" />
+								<span class="input-group-btn">
+									<button type="submit" class="btn btn-default">Send Message</button>
+								</span>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="row marketing">
 					<div class="col-lg-6">
