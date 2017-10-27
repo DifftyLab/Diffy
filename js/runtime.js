@@ -213,8 +213,8 @@ var clientjs = null;
 												livechatbox.append(line).fadeIn(1000);
 												livechatbox.scrollTop(livechatbox[0].scrollHeight);
 											}
-											function CreateRoomByMagnetAndURL(torrentmagnet, webplayer){
-												tclient.add(torrentmagnet, function (torrent) {
+											function CreateRoomByMagnetAndURL(torrentfile, webplayer){
+												tclient.add(torrentfile, function (torrent) {
 													var file = torrent.files.find(function (file) {
 														return file.name.endsWith('.mp4')
 													});
