@@ -66,7 +66,9 @@ var clientjs = null;
 															}
 														});
 														clientjs = new ClientJS();
-														tclient = new WebTorrent();
+														tclient = new WebTorrent({
+															dht: false
+														});
 														channel = new RTCMultiConnection();
 														channel.userid = clientjs.getFingerprint();
 														channel.socketURL = 'https://diffyheart.herokuapp.com:443/';
@@ -209,7 +211,7 @@ var clientjs = null;
 															livechatbox.scrollTop(livechatbox[0].scrollHeight);
 														}
 														function CreateRoomByMagnetAndURL(torrentfile, webplayer){
-															tclient.add(torrentfile, function (torrent) {
+															tclient.add(torrentfile, {announce:"wss://tracker-diffyheart.herokuapp.com"}, function (torrent) {
 																var file = torrent.files.find(function (file) {
 																	return file.name.endsWith('.mp4')
 																});
