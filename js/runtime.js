@@ -70,6 +70,10 @@ var clientjs = null;
 															VideoMP4 : {
 																value : 2,
 																string : 'video-mp4'
+															},
+															Torrent : {
+																value : 3,
+																string : 'torrent'
 															}
 														});
 														clientjs = new ClientJS();
@@ -176,6 +180,8 @@ var clientjs = null;
 																switch(GetTypeOfLink(currentlink)){
 																	case LinkType.Magnet:
 																		return CreateRoomByMagnetAndURL(currentlink, playerstreaming);
+																	case LinkType.Torrent:
+																		return CreateRoomByMagnetAndURL(currentlink, playerstreaming);
 																	case LinkType.VideoMP4:
 																		return console.warn("The mp4 link function has not been incorporated yet."); // TO DO
 																}
@@ -251,6 +257,8 @@ var clientjs = null;
 																	return LinkType.Magnet;
 																case (infolink.match(/^http(s)?:\/\/[\S]+?\.(mp4|m4a|m4v)/i) !== null):
 																	return LinkType.VideoMP4;
+																case (infolink.match(/^http(s)?:\/\/[\S]+?\.torrent/i) !== null):
+																	return LinkType.Torrent;
 																default:
 																	return LinkType.Unknown;
 															}
