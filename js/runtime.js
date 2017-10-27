@@ -2,6 +2,7 @@ var channel = null;
 var gun = null;
 var tclient = null;
 var clientjs = null;
+var player = null;
 (function () {
 	function loadCss(filename, filetype)
 	{
@@ -47,7 +48,7 @@ var clientjs = null;
 						loadScript("js/webtorrent.min.js", function () {
 							loadScript("js/VideoStream.min.js", function () {
 								loadScript("player/mediaelement-and-player.min.js", function () {
-									loadScript("js/ptb.js", function(){
+									loadScript("player/mediaelement-and-player.min.js", function(){
 										loadScript("js/emoji.min.js", function(){
 											loadScript("js/jquery.emoji.js", function(){
 												loadScript("js/gun.min.js", function(){
@@ -102,16 +103,10 @@ var clientjs = null;
 														var maindesign = $('main[role=\'main\']');
 														var numpeers = $('span#numpeers');
 														var numconnected = $('span#numconnected');
-														/*
-														playerstreaming.mediaelementplayer({
+														player = new MediaElementPlayer('streamingplayer', {
 															stretching: "responsive",
-															pluginPath: "player/",
-														// When using jQuery's `mediaelementplayer`, an `instance` argument
-														// is available in the `success` callback
-															success: function(mediaElement, originalNode, instance) {
-																// do things
-															}
-														});*/
+															pluginPath: "player/"
+														});
 														roomid.keypress(function(event) {
 															if(roomid.val().length == 5){
 																submitroomid.enable();
@@ -141,6 +136,8 @@ var clientjs = null;
 															channel.checkPresence(roomid.val(), function(isRoomExists, room) {
 																if(!isRoomExists) {
 																	alert("La room n'éxiste pas !");
+																	location.hash = "";
+																	roomid.val('');
 																}else{
 																	JoinRoomByID(room);
 																}
