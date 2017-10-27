@@ -140,8 +140,7 @@ var clientjs = null;
 													if(!isRoomExists) {
 														alert("La room n'éxiste pas !");
 													}else{
-														history.pushState(history.state, null, "#" + room);
-														channel.join(room);
+														JoinRoomByID(room);
 													}
 													submitroomid.removeClass("m-progress");
 													submitroomid.enable();
@@ -221,10 +220,7 @@ var clientjs = null;
 													if(file){
 														var nowroom = makeid();
 														channel.open(nowroom);
-														history.pushState(history.state, null, "#" + nowroom);
-														createroomdesign.hide( "slow", function() {});
-														roomdesign.show(500);
-														maindesign.prepend("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">" + nowroom + "</strong>, or <a href=\"#" + nowroom +"\" class=\"alert-link\">Link</a></div>").show(1000);
+														InitDesignToRoom(nowroom);
 														VideoStream(file, webplayer[0]);
 														setInterval(function(){numpeers.html(torrent.numPeers)}, 500);
 													}else{
@@ -233,8 +229,15 @@ var clientjs = null;
 													}
 												});
 											}
+											function InitDesignToRoom(room){
+												history.pushState(history.state, null, "#" + room);
+												createroomdesign.hide( "slow", function() {});
+												roomdesign.show(500);
+												maindesign.prepend("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">" + room + "</strong>, or <a href=\"#" + room +"\" class=\"alert-link\">Link</a></div>").show(1000);
+											}
 											function JoinRoomByID(nowroom){
-
+												channel.join(room);
+												InitDesignToRoom(nowroom);
 											}
 											function CreateRoomBySeed(currentfile, webplayer){ // TODO Deprecated
 												tclient.seed(currentfile, function (torrent) {
@@ -251,9 +254,16 @@ var clientjs = null;
 														return LinkType.Unknown;
 												}
 											}
-										});
-										$("#choosemovie").click(function(){
-											gun = Gun('https://db-diffyheart.herokuapp.com/gun');
+											if(location.hash != ""){
+												let rooom = location.hash.substring(1,6);
+												if(rooom.length == 5){
+													roomid.val(rooom);
+													submitroomid.click();
+												}
+											}
+											$("#choosemovie").click(function(){
+												gun = Gun('https://db-diffyheart.herokuapp.com/gun');
+											});
 										});
 									});
 								});
