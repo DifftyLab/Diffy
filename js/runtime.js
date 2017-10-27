@@ -34,17 +34,6 @@ var clientjs = null;
 	loadCss("css/style.css");
 	loadCss("player/mediaelementplayer.min.css");
 	loadScript("js/jquery-3.2.1.min.js", function () {
-		$.prototype.enable = function () {
-			$.each(this, function (index, el) {
-				$(el).removeAttr('disabled');
-			});
-		}
-
-		$.prototype.disable = function () {
-			$.each(this, function (index, el) {
-				$(el).attr('disabled', 'disabled');
-			});
-		}
 		loadScript("js/bootstrap.min.js", function () {
 			loadScript("https://diffyheart.herokuapp.com:443/socket.io/socket.io.js", function () {
 				loadScript("https://diffyheart.herokuapp.com:443/dist/RTCMultiConnection.js", function () {

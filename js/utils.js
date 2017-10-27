@@ -27,7 +27,16 @@ function Enum() {
     this._enums = [];
     this._lookups = {};
 }
-
+$.prototype.enable = function () {
+    $.each(this, function (index, el) {
+        $(el).removeAttr('disabled');
+    });
+}
+$.prototype.disable = function () {
+    $.each(this, function (index, el) {
+        $(el).attr('disabled', 'disabled');
+    });
+}
 Enum.prototype.getEnums = function() {
     return _enums;
 }
