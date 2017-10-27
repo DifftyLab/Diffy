@@ -28,16 +28,36 @@
 				<h3 class="text-muted">Diffy <font class="hearttext">&hearts;</font></h3>
 			</header>
 			<main role="main">
-				<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				<div class="alert alert-info alert-dismissible fade show" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
 					Room ID: <strong onclick="autoselect(this)">AaAaA</strong>, or <a href="#" class="alert-link">link</a>
 				</div>
-				<div class="embed-responsive embed-responsive-16by9">
-					<video id="streamingplayer" controls="" autoplay="" src="blob:https://webtorrent.io/c950ed78-cc08-49d8-92f3-0291f281b8e9"></video>
+				<div class="card mb-3">
+		          <div class="media-wrapper card-img-top">
+		                <video id="streamingplayer" width="100%" height="100%" style="max-width:100%;" poster="http://www.mediaelementjs.com/images/big_buck_bunny.jpg" src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4" preload="none" controls playsinline webkit-playsinline></video>
+		            </div>
+					<div class="card-body">
+						<h4 class="card-title">The Martian</h4>
+							<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+						<p class="card-text"><small class="text-muted">Peers : 0</small></p>
+					</div>
 				</div>
-
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">Live Chat</h4>
+						<ul class="list-group" id="chat-output"></ul>
+						<form id="chat">
+							<div class="input-group">
+								<input type="text" class="form-control" id="chat-input" />
+								<span class="input-group-btn">
+									<button type="submit" class="btn btn-default">Send Message</button>
+								</span>
+							</div>
+						</form>
+					</div>
+				</div>
 				<div class="row marketing">
 					<div class="col-lg-6">
 						<h4>Subheading</h4>

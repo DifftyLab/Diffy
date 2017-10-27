@@ -9,6 +9,10 @@ body {
   font-style: normal;
   font-weight: 400;
 }
+#chat-output {
+  height: 150px;
+  overflow-y: scroll;
+}
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
