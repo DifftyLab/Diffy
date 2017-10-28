@@ -232,7 +232,7 @@ var player = null;
 																	setInterval(function(){numpeers.html(torrent.numPeers)}, 500);
 																}else{
 																	torrent.destroy();
-																	return console.error("This torrent is not compatible (only mp4).");
+																	console.error("This torrent is not compatible (only mp4).");
 																}
 															});
 														}
