@@ -52,7 +52,6 @@ var player = null;
 										loadScript("js/emoji.min.js", function(){
 											loadScript("js/jquery.emoji.js", function(){
 												loadScript("js/gun.min.js", function(){
-													gun = Gun('https://db-diffyheart.herokuapp.com/gun');
 													loadScript("js/utils.js", function () {
 														var LinkType = defineEnum({
 															Unknown : {
@@ -72,6 +71,7 @@ var player = null;
 																string : 'torrent'
 															}
 														});
+														gun = Gun('https://db-diffyheart.herokuapp.com/gun');
 														clientjs = new ClientJS();
 														tclient = new WebTorrent({
 															dht: false
@@ -104,8 +104,11 @@ var player = null;
 														var numpeers = $('span#numpeers');
 														var numconnected = $('span#numconnected');
 														player = new MediaElementPlayer('streamingplayer', {
+															features: ['volume', 'current', 'duration', 'fullscreen'],
+															enableKeyboard: false,
 															stretching: "responsive",
-															pluginPath: "player/"
+															pluginPath: "player/",
+															startVolume: 0.5
 														});
 														roomid.keypress(function(event) {
 															if(roomid.val().length == 5){
@@ -138,7 +141,7 @@ var player = null;
 																	alert("La room n'éxiste pas !");
 																	location.hash = "";
 																	roomid.val('');
-																	createroom.disable();
+																	submitroomid.disable();
 																}else{
 																	JoinRoomByID(room);
 																}
@@ -193,7 +196,6 @@ var player = null;
 															inputchatbox.val('');
 														});
 														channel.onmessage = function(event) {
-															console.log(event.isInitiator);
 															switch(event.data["type"]){
 																case "message":
 																	if(event.isInitiator){
