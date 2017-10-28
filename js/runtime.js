@@ -39,7 +39,6 @@ var player = null;
 		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
 		gtag('config', 'UA-108834973-1');
-		gtag('require', 'GTM-P5Z2PF3');
 	});
 	loadScript("js/jquery-3.2.1.min.js", function () {
 		loadScript("js/bootstrap.min.js", function () {
