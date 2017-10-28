@@ -110,6 +110,8 @@ var player = null;
 															pluginPath: "player/",
 															startVolume: 0.5
 														});
+														player.forceLive = true;
+														player.clickToPlayPause = false;
 														roomid.keypress(function(event) {
 															if(roomid.val().length == 5){
 																submitroomid.enable();
@@ -122,8 +124,7 @@ var player = null;
 														});
 														fileselected.change(function(){
 															if(linkselected[0].length > 0){
-																console.log("LINK: reset");
-																document.getElementById("inputroom").reset();
+																linkselected.val("");
 															}
 														});
 														linkselected.keypress(function(){
@@ -208,7 +209,6 @@ var player = null;
 														};
 														channel.onUserStatusChanged = function(event){
 															numconnected.text(channel.peers.getLength());
-
 														};
 														function log (message) {
 															var el = $('<li>').addClass('log').text(message);
