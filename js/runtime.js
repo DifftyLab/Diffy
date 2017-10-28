@@ -206,9 +206,14 @@ var player = null;
 																	break;
 															}
 														};
-														channel.onUserStatusChanged = function(status){
+														channel.onUserStatusChanged = function(event){
 															numconnected.text(channel.peers.getLength());
+
 														};
+														function log (message) {
+															var el = $('<li>').addClass('log').text(message);
+															livechatbox.prepend(el);
+														}
 														function SendMessage(message){
 															channel.send({'type':'message', 'data':message});
 														}
