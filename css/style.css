@@ -3,7 +3,9 @@ body {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
-
+.BoxShadow {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 * {
   font-family: "Product Sans";
   font-style: normal;
