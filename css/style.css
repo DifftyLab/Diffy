@@ -9,7 +9,11 @@ body {
   font-style: normal;
   font-weight: 400;
 }
-
+@media (max-width: 70em) {
+  .forkme {
+    display: none;
+  }
+}
 .animate-reveal {
   opacity: 0;
   -webkit-animation: reveal 500ms cubic-bezier(0, 1, 0.5, 1) 1 normal forwards;
