@@ -1,4 +1,5 @@
 /* Space out content a bit */
+
 body {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -7,6 +8,12 @@ body {
   font-family: "Product Sans";
   font-style: normal;
   font-weight: 400;
+}
+.mejs__controls {
+  visibility: hidden;
+}
+.mejs__overlay {
+  visibility: hidden;
 }
 @media (max-width: 70em) {
   .forkme {
