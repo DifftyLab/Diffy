@@ -94,6 +94,7 @@ var player = null;
 															var createroom = $('#createroom');
 
 															var fileselected = $('#fileselected');
+															var filename = $('#filename')
 															var linkselected = $('#linkselected');
 
 															var playerstreaming = $('#streamingplayer');
@@ -136,14 +137,15 @@ var player = null;
 																}
 															});
 															fileselected.change(function(){
-																if(linkselected[0].length > 0){
-																	linkselected.val("");
+																if(fileselected[0].files.length > 0){
+																	linkselected.val('');
+																	filename.val(fileselected[0].files[0].name);
 																}
 															});
 															linkselected.keypress(function(){
-																if(fileselected[0].files.length > 0){
-																	console.log("FILE: reset");
-																	document.getElementById("inputroom").reset(); 
+																if(fileselected[0].files.length > 0 || filename.val().length > 0){
+																	fileselected.val('');
+																	filename.val('');
 																}
 															});
 															submitroomid.click(function(){
