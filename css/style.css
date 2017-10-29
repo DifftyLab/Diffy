@@ -9,6 +9,7 @@ body {
   font-style: normal;
   font-weight: 400;
 }
+
 .mejs__controls {
   visibility: hidden;
 }
