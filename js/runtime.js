@@ -43,8 +43,8 @@ var player = null;
 	});
 	loadScript("js/jquery-3.2.1.min.js", function () {
 		loadScript("js/jquery.mobile-1.4.5.min.js", function () {
-			loadScript("js/bootstrap.min.js", function () {
-				loadScript("js/popper.min.js", function () {
+			loadScript("js/popper.min.js", function () {
+				loadScript("js/bootstrap.min.js", function () {
 					loadScript("https://diffyheart.herokuapp.com:443/socket.io/socket.io.js", function () {
 						loadScript("https://diffyheart.herokuapp.com:443/dist/RTCMultiConnection.js", function () {
 							loadScript("js/clientjs.min.js", function(){
