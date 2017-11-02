@@ -1,0 +1,6 @@
+Click play ->
+	Send currenttime
+
+	Recevied --<
+		(Loading ...) Draw GIF (3..2..1...)
+		Play

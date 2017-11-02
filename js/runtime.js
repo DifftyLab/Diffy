@@ -107,20 +107,23 @@ var player = null;
 															var numpeers = $('#numpeers');
 															var numconnected = $('#numconnected');
 															var playstream = $('#playstream');
+
 															//TODO AJout du bouton que si créateur
 															//$(".mejs__controls").show();
 															//$(".mejs__overlay").show();
 															player = new MediaElementPlayer('streamingplayer', {
 																//features: ['current', 'broadcast', 'duration', 'volume', 'fullscreen'],
 																enableKeyboard: false,
-																clickToPlayPause: false,
+																clickToPlayPause: false, 
 																stretching: "responsive",
 																pluginPath: "player/",
 																startVolume: 0.5,
 																forceLive: true,
 																pauseOtherPlayers: false,
-																alwaysShowControls: true
+																alwaysShowControls: true,
+																hideCaptionsButtonWhenEmpty: false //Show caption
 															});
+															
 															playstream.click(function(){
 																playstream.disable();
 																playtime = Date.now();
@@ -178,10 +181,10 @@ var player = null;
 																	let mycurrentfile = fileselected[0].files[0];
 																	switch(mycurrentfile.type){
 																		case "video/mp4":
-																			return CreateRoomBySeed(mycurrentfile, playerstreaming); // TO TEST
+																			return CreateRoomBySeed(mycurrentfile); // TO TEST
 																		case "":
 																			if(mycurrentfile.name.endsWith('.torrent')){
-																				return CreateRoomByMagnetAndURL(mycurrentfile, playerstreaming);
+																				return CreateRoomByMagnetAndURL(mycurrentfile);
 																				//return console.warn("The torrent file upload function has not been incorporated yet."); // TO DO
 																			}else{
 																				return console.error(mycurrentfile.name + " is not supported by Diffy.");
@@ -193,9 +196,9 @@ var player = null;
 																	let currentlink = linkselected.val();
 																	switch(GetTypeOfLink(currentlink)){
 																		case LinkType.Magnet:
-																			return CreateRoomByMagnetAndURL(currentlink, playerstreaming);
+																			return CreateRoomByMagnetAndURL(currentlink);
 																		case LinkType.Torrent:
-																			return CreateRoomByMagnetAndURL(currentlink, playerstreaming);
+																			return CreateRoomByMagnetAndURL(currentlink);
 																		case LinkType.VideoMP4:
 																			return console.warn("The mp4 link function has not been incorporated yet."); // TO DO
 																	}
@@ -211,14 +214,30 @@ var player = null;
 																AddChatBox("You", inputchatbox.val());
 																inputchatbox.val('');
 															});
+															channel.onopen = function(event) {
+																if(channel.isInitiator){
+																	console.log("Send... : " + tclient.torrents[0].magnetURI);
+																	channel.send({type:"magnet", data:tclient.torrents[0].magnetURI});
+																}
+															}
 															channel.onmessage = function(event) {
 																switch(event.data["type"]){
 																	case "message":
-																		if(event.isInitiator){
+																		if(event.userid == channel.sessionid){
 																			AddChatBox("Owner", event.data["data"]);
 																		}else{
 																			AddChatBox(event.userid, event.data["data"]);
 																		}
+																		break;
+																	case "magnet":
+																		if(!channel.isInitiator){
+																			if(!tclient.torrents.length > 0){
+																				CreateRoomByMagnetAndURL(event.data["data"], true);
+																			}
+																		}
+																		break;
+																	case "play":
+
 																		break;
 																}
 															};
@@ -239,17 +258,19 @@ var player = null;
 																livechatbox.append(line.emoji()).fadeIn(1000);
 																livechatbox.scrollTop(livechatbox[0].scrollHeight);
 															}
-															function CreateRoomByMagnetAndURL(torrentfile, webplayer){
+															function CreateRoomByMagnetAndURL(torrentfile, nocreate=false){
 																tclient.add(torrentfile, {announce:"wss://tracker-diffyheart.herokuapp.com"}, function (torrent) {
 																	var file = torrent.files.find(function (file) {
 																		return file.name.endsWith('.mp4')
 																	});
 																	if(file){
-																		var nowroom = makeid();
-																		channel.open(nowroom);
-																		InitDesignToRoom(nowroom);
+																		if(!nocreate){
+																			var nowroom = makeid();
+																			channel.open(nowroom);
+																			InitDesignToRoom(nowroom)
+																		}
 																		VideoStream(file, player.media);
-																		setInterval(function(){numpeers.html(torrent.numPeers)}, 500);
+																		setInterval(onPeers(torrent), 500);
 																	}else{
 																		torrent.destroy();
 																		console.error("This torrent is not compatible (only mp4).");
@@ -266,10 +287,17 @@ var player = null;
 																channel.join(room);
 																InitDesignToRoom(room);
 															}
-															function CreateRoomBySeed(currentfile, webplayer){ // TODO Deprecated
+															function CreateRoomBySeed(currentfile){ // TODO Deprecated
 																tclient.seed(currentfile, function (torrent) {
-																	CreateRoomByMagnetAndURL(torrent.magnetURI, webplayer);
+																	var nowroom = makeid();
+																	channel.open(nowroom);
+																	InitDesignToRoom(nowroom);
+																	VideoStream(torrent.files[0], player.media);
+																	setInterval(onPeers(torrent), 500);
 																});
+															}
+															function onPeers(torrent){
+																numpeers.html(torrent.numPeers);
 															}
 															function GetTypeOfLink(infolink){
 																switch(true){
