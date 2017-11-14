@@ -1,5 +1,4 @@
 var channel = null;
-var gun = null;
 var tclient = null;
 var clientjs = null;
 var player = null;
@@ -32,15 +31,15 @@ var player = null;
 	}
 	loadCss("css/font-awesome.min.css");
 	loadCss("css/bootstrap.min.css");
-	loadCss("css/style.css");
-	loadCss("css/magnific-popup.css");
 	loadCss("player/mediaelementplayer.min.css");
-	loadScript("https://www.googletagmanager.com/gtag/js?id=UA-108834973-1", function(){
+	loadCss("css/dropzone.css");
+	loadCss("css/style.css");
+	/*loadScript("https://www.googletagmanager.com/gtag/js?id=UA-108834973-1", function(){
 		window.dataLayer = window.dataLayer || [];
 		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
 		gtag('config', 'UA-108834973-1');
-	});
+	});*/
 	loadScript("js/jquery-3.2.1.min.js", function () {
 		loadScript("js/popper.min.js", function () {
 			loadScript("js/bootstrap.min.js", function () {
@@ -51,10 +50,10 @@ var player = null;
 								loadScript("js/webtorrent.min.js", function () {
 									loadScript("js/VideoStream.min.js", function () {
 										loadScript("player/mediaelement-and-player.min.js", function () {
-											loadScript("player/jquery.magnific-popup.min.js", function(){
+											loadScript("js/dropzone.js", function(){
 												loadScript("js/emoji.min.js", function(){
 													loadScript("js/jquery.emoji.js", function(){
-														loadScript("js/gun.min.js", function(){
+														loadScript("js/fastclick.js", function(){
 															loadScript("js/utils.js", function () {
 																var LinkType = defineEnum({
 																	Unknown : {
@@ -74,13 +73,13 @@ var player = null;
 																		string : 'torrent'
 																	}
 																});
-																gun = Gun('https://db-diffyheart.herokuapp.com/gun');
 																clientjs = new ClientJS();
 																tclient = new WebTorrent({
 																	dht: false
 																});
 																channel = new RTCMultiConnection();
 																channel.userid = clientjs.getFingerprint();
+																channel.extra.username = clientjs.getFingerprint();
 																channel.socketURL = 'https://diffyheart.herokuapp.com:443/';
 																channel.session = {
 																	data: true
@@ -113,6 +112,15 @@ var player = null;
 																//TODO AJout du bouton que si créateur
 																//$(".mejs__controls").show();
 																//$(".mejs__overlay").show();
+																$("div#seeddropzone").dropzone({
+																	maxFiles: 1,
+																	maxFilesize: 1,
+																	maxFilesize: 10, //mb
+																	acceptedFiles: '.torrent,video/mp4,video/m4a,video/m4v',
+																	addRemoveLinks: true,
+																	autoProcessQueue: false,// used for stopping auto processing uploads
+																	autoDiscover: false										
+																});
 																player = new MediaElementPlayer('streamingplayer', {
 																	//features: ['current', 'broadcast', 'duration', 'volume', 'fullscreen'],
 																	enableKeyboard: false,
@@ -127,11 +135,15 @@ var player = null;
 																});
 																
 																playstream.click(function(){
-																	playstream.disable();
-																	playtime = Date.now();
-																	channel.send({"type":"playtime", data:playtime});
+																	if(channel.isInitiator){
+																		playstream.disable();
+																		playstream.blur();
+																		playtime = Date.now();
+																		channel.send({"type":"playtime", data:playtime});
+																	}
 																})
 																roomid.keypress(function(event) {
+																	console.log("test");
 																	if(roomid.val().length == 5){
 																		submitroomid.enable();
 																		if(event.which == 13){
@@ -227,8 +239,9 @@ var player = null;
 																		case "message":
 																			if(event.userid == channel.sessionid){
 																				AddChatBox("Owner", event.data["data"]);
+																				//AddChatBox(generateName(event.userid), event.data["data"]);
 																			}else{
-																				AddChatBox(event.userid, event.data["data"]);
+																				AddChatBox(generateName(event.userid), event.data["data"]);
 																			}
 																			break;
 																		case "magnet":
@@ -268,11 +281,12 @@ var player = null;
 																		if(file){
 																			if(!nocreate){
 																				var nowroom = makeid();
+																				channel.extra.magnet = torrent.magnetURI;
 																				channel.open(nowroom);
 																				InitDesignToRoom(nowroom)
 																			}
 																			VideoStream(file, player.media);
-																			setInterval(onPeers(torrent), 500);
+																			setInterval(onPeers(torrent), 1000);
 																		}else{
 																			torrent.destroy();
 																			console.error("This torrent is not compatible (only mp4).");
@@ -282,6 +296,9 @@ var player = null;
 																function InitDesignToRoom(room){
 																	history.pushState(history.state, null, "#" + room);
 																	createroomdesign.hide( "slow", function() {});
+																	if(channel.isInitiator){
+																		playstream.show();
+																	}
 																	roomdesign.show(500);
 																	maindesign.prepend("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">" + room + "</strong>, or <a href=\"#" + room +"\" class=\"alert-link\">Link</a></div>").show(1000);
 																}
@@ -313,7 +330,7 @@ var player = null;
 																			return LinkType.Unknown;
 																	}
 																}
-																if(location.hash != ""){
+																if(location.hash !== ""){
 																	let rooom = location.hash.substring(1,6);
 																	if(rooom.length == 5){
 																		roomid.val(rooom);

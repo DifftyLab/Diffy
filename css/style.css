@@ -8,6 +8,15 @@ body {
   font-family: "Product Sans";
   font-style: normal;
   font-weight: 400;
+  text-rendering: optimizeLegibility;
+}
+.dropzone {
+    border: 2px dashed #007bff;
+    border-radius: 5px;
+    background: white;
+}
+#playstream {
+  display: none;
 }
 hr.styleOR {
 background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
@@ -23,10 +32,10 @@ background: #e9ecef;
 }
 
 .mejs__controls {
-  visibility: hidden;
+  display: none;
 }
 .mejs__overlay {
-  visibility: hidden;
+  display: none;
 }
 @media (max-width: 70em) {
   .forkme {
