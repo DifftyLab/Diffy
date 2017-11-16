@@ -326,9 +326,9 @@ var player = null;
 																	switch(true){
 																		case (infolink.match(/^magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{32}/i) !== null):
 																			return LinkType.Magnet;
-																		case (infolink.match(/^http(s)?:\/\/[\S]+?\.(mp4|m4a|m4v)/i) !== null):
+																		case (infolink.match(/^https?:\/\/[\S]+?\.(mp4|m4a|m4v)/i) !== null):
 																			return LinkType.VideoMP4;
-																		case (infolink.match(/^http(s)?:\/\/[\S]+?\.torrent/i) !== null):
+																		case (infolink.match(/^https?:\/\/[\S]+?\.torrent/i) !== null):
 																			return LinkType.Torrent;
 																		default:
 																			return LinkType.Unknown;
