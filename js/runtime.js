@@ -3,12 +3,21 @@ var tclient = null;
 var clientjs = null;
 var player = null;
 (function() {
-	function loadCss(filename, filetype) {
-		let fileref = document.createElement("link");
-		fileref.rel = "stylesheet";
-		fileref.type = "text/css";
-		fileref.href = filename;
-		document.getElementsByTagName("head")[0].appendChild(fileref)
+	function LoadCss(url) {
+		let queue = []
+		let funcload = () => {
+			var url = queue.shift();
+			let fileref = document.createElement("link");
+			fileref.rel = "stylesheet";
+			fileref.type = "text/css";
+			fileref.href = url;
+			document.getElementsByTagName("head")[0].appendChild(fileref)
+			if (queue.length > 0) {
+				funcload();
+			}
+		}
+		queue = queue.concat(url)
+		funcload();
 	}
 	function LoadScript(url, callback) {
 		let queue = []
@@ -42,17 +51,13 @@ var player = null;
 		queue = queue.concat(url)
 		funcload();
 	}
-	loadCss("css/font-awesome.min.css");
-	loadCss("css/bootstrap.min.css");
-	loadCss("player/mediaelementplayer.min.css");
-	loadCss("css/dropzone.css");
-	loadCss("css/style.css");
-	/*loadScript("https://www.googletagmanager.com/gtag/js?id=UA-108834973-1", function(){
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-		gtag('config', 'UA-108834973-1');
-	});*/
+	LoadCss([
+		"css/font-awesome.min.css",
+		"css/bootstrap.min.css", 
+		"player/mediaelementplayer.min.css", 
+		"css/dropzone.css", 
+		"css/style.css"
+		]);
 	LoadScript([
 		"js/jquery-3.2.1.min.js",
 		"js/popper.min.js",
