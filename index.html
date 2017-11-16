@@ -39,7 +39,7 @@
 					<ul class="nav nav-pills float-right">
 						<div class="form-inline my-2 my-lg-0">
 						<div class="input-group">
-							<input id="roomid" type="text" class="form-control" minlength="5" maxlength="5" placeholder="Room ID" />
+							<input id="roomid" type="text" class="form-control" pattern="^[a-z0-9A-Z]{5}$" minlength="5" maxlength="5" placeholder="Room ID" />
 							<span class="input-group-btn">
 								<button type="button" id="submitroomid" class="btn btn-primary" disabled="">Join <i class="fa fa-sign-in" aria-hidden="true"></i></button>
 							</span>
@@ -79,10 +79,10 @@
 						<div class="form-group row">
 							<label for="linkselected" class="col-2 col-form-label">Link</label>
 							<div class="col-10">
-								<input id="linkselected" class="form-control" type="text" placeholder="Torrent, Magnet" id="link-text-input" pattern="^(magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{20,50}[\S]+|http[s]?:\/\/[\S]+?\.torrent)" autofocus><!-- TODO: pattern="(magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{32}|http(s)?:\/\/[\S]+?\.(mp4|m4a|m4v))" -->
+								<input id="linkselected" class="form-control" type="text" placeholder="Torrent, Magnet" id="link-text-input" pattern="^(magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{20,50}[\S]+|https?:\/\/[\S]+?\.torrent)$" autofocus><!-- TODO: pattern="(magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{32}|http(s)?:\/\/[\S]+?\.(mp4|m4a|m4v))" -->
 							</div>
 						</div>
-						<p><button id="createroom" class="btn btn-lg btn-secondary">Create the room</button></p>
+						<p><button id="createroom" class="btn btn-lg btn-secondary" disabled="">Create the room</button></p>
 					</div>
 				</div>
 				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

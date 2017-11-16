@@ -80,6 +80,7 @@ var player = null;
 																channel = new RTCMultiConnection();
 																channel.userid = clientjs.getFingerprint();
 																channel.extra.username = clientjs.getFingerprint();
+																channel.extra.started = false;
 																channel.socketURL = 'https://diffyheart.herokuapp.com:443/';
 																channel.session = {
 																	data: true
@@ -143,7 +144,6 @@ var player = null;
 																	}
 																})
 																roomid.keypress(function(event) {
-																	console.log("test");
 																	if(roomid.val().length == 5){
 																		submitroomid.enable();
 																		if(event.which == 13){
@@ -157,12 +157,16 @@ var player = null;
 																	if(fileselected[0].files.length > 0){
 																		linkselected.val('');
 																		filename.val(fileselected[0].files[0].name);
+																		createroom.enable();
 																	}
 																});
 																linkselected.keypress(function(){
 																	if(fileselected[0].files.length > 0 || filename.val().length > 0){
 																		fileselected.val('');
 																		filename.val('');
+																		createroom.enable();
+																	}else{
+																		createroom.disable();
 																	}
 																});
 																submitroomid.click(function(){
