@@ -23,6 +23,38 @@ function autoselect(el) {
         textRange.select();
     }
 }
+function LoadScript(url, callback) {
+  	let queue = []
+  	let funcload = () => {
+  		var url = queue.shift();
+  		var script = document.createElement("script")
+  		script.type = "text/javascript";
+  		if (script.readyState) { //IE
+  			script.onreadystatechange = function () {
+  				if (script.readyState == "loaded" || script.readyState == "complete") {
+  					script.onreadystatechange = null;
+  					if (queue.length == 0) {
+  						callback();
+  					} else {
+  						funcload();
+  					}
+  				}
+  			};
+  		} else { //Others
+  			script.onload = function () {
+  				if (queue.length == 0) {
+  					callback();
+  				} else {
+  					funcload();
+  				}
+  			};
+  		}
+  		script.src = url;
+  		document.getElementsByTagName("head")[0].appendChild(script);
+  	}
+  	queue = queue.concat(url)
+  	funcload();
+}
 function Enum() {
     this._enums = [];
     this._lookups = {};
