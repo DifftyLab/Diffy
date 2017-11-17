@@ -101,6 +101,8 @@ var player = null;
 		channel.userid = clientjs.getFingerprint();
 		channel.extra.username = clientjs.getFingerprint();
 		channel.extra.started = false;
+		channel.extra.starttime = 0;
+
 		channel.socketURL = 'https://diffyheart.herokuapp.com:443/';
 		channel.session = {
 			data: true
@@ -159,11 +161,8 @@ var player = null;
 			if (channel.isInitiator) {
 				playstream.disable();
 				playstream.blur();
-				playtime = Date.now();
-				channel.send({
-					"type": "playtime",
-					data: playtime
-				});
+				channel.extra.started = true;
+				channel.extra.starttime = Date.now();
 			}
 		})
 		roomid.keypress(function(event) {
@@ -340,7 +339,7 @@ var player = null;
 				playstream.show();
 			}
 			roomdesign.show(500);
-			maindesign.prepend("<div class=\"alert alert-info\" role=\"alert\">Room ID: <strong onclick=\"autoselect(this)\">" + room + "</strong>, or <a href=\"#" + room + "\" class=\"alert-link\">Link</a></div>").show(1000);
+			maindesign.prepend("<div class=\"alert alert-info alert-dismissible fade show\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>Room ID: <strong onclick=\"autoselect(this)\">" + room + "</strong>, or <a href=\"#" + room + "\" class=\"alert-link\">Link</a></div>").show(1000);
 		}
 
 		function JoinRoomByID(room) {
