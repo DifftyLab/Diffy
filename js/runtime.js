@@ -165,8 +165,8 @@ var player = null;
 				channel.extra.starttime = Date.now();
 			}
 		})
-		roomid.keypress(function(event) {
-			if (roomid.val().length == 5) {
+		roomid.keyup(function(event) {
+			if (roomid.val().length == 5 && roomid[0].checkValidity()) {
 				submitroomid.enable();
 				if (event.which == 13) {
 					submitroomid.click();
@@ -182,13 +182,16 @@ var player = null;
 				createroom.enable();
 			}
 		});
-		linkselected.keypress(function() {
+		linkselected.keyup(function() {
 			if (fileselected[0].files.length > 0 || filename.val().length > 0) {
 				fileselected.val('');
 				filename.val('');
-				createroom.enable();
 			} else {
-				createroom.disable();
+				if(linkselected.val().length > 0 && linkselected[0].checkValidity()){
+					createroom.enable();
+				}else{
+					createroom.disable();
+				}
 			}
 		});
 		submitroomid.click(function() {
@@ -254,15 +257,6 @@ var player = null;
 			AddChatBox("You", inputchatbox.val());
 			inputchatbox.val('');
 		});
-		channel.onopen = function(event) {
-			if (channel.isInitiator) {
-				console.log("Send... : " + tclient.torrents[0].magnetURI);
-				channel.send({
-					type: "magnet",
-					data: tclient.torrents[0].magnetURI
-				});
-			}
-		}
 		channel.onmessage = function(event) {
 			switch (event.data["type"]) {
 				case "message":
