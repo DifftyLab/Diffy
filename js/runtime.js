@@ -267,25 +267,22 @@ var player = null;
 						AddChatBox(generateName(event.userid), event.data["data"]);
 					}
 					break;
-				case "magnet":
-					if (!channel.isInitiator) {
-						if (!tclient.torrents.length > 0) {
-							CreateRoomByMagnetAndURL(event.data["data"], true);
-						}
-					}
-					break;
-				case "play":
-
-					break;
 			}
 		};
-		channel.onUserStatusChanged = function(event) {
+		channel.onUserStatusChanged = (event) => {
 			numconnected.text(channel.peers.getLength());
 		};
-
+		channel.onleave = (event) => {
+			log(generateName(event.userid) + " left");
+		};
+		/*
+		channel.onleave = (event) => {
+			log(generateName(event.userid) + " joined");
+			console.log("onopen");
+		}*/ // BUG TO FIX
 		function log(message) {
 			var el = $('<li>').addClass('log').text(message);
-			livechatbox.prepend(el);
+			livechatbox.append(el);
 		}
 
 		function SendMessage(message) {
@@ -306,8 +303,8 @@ var player = null;
 		function CreateRoomByMagnetAndURL(torrentfile, nocreate = false) {
 			tclient.add(torrentfile, {
 				announce: "wss://tracker-diffyheart.herokuapp.com"
-			}, function(torrent) {
-				var file = torrent.files.find(function(file) {
+			}, (torrent) => {
+				var file = torrent.files.find((file) => {
 					return file.name.endsWith('.mp4')
 				});
 				if (file) {
@@ -342,7 +339,7 @@ var player = null;
 		}
 
 		function CreateRoomBySeed(currentfile) { // TODO Deprecated
-			tclient.seed(currentfile, function(torrent) {
+			tclient.seed(currentfile, (torrent) => {
 				var nowroom = makeid();
 				channel.open(nowroom);
 				InitDesignToRoom(nowroom);
