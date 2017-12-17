@@ -163,6 +163,7 @@ var player = null;
 				playstream.blur();
 				channel.extra.started = true;
 				channel.extra.starttime = Date.now();
+				channel.updateExtraData();
 			}
 		})
 		roomid.keyup(function(event) {
@@ -272,6 +273,13 @@ var player = null;
 		channel.onUserStatusChanged = (event) => {
 			numconnected.text(channel.peers.getLength());
 		};
+		channel.onExtraDataUpdated = (event) => {
+			if (event.userid == channel.sessionid) {
+				if(event.extra.started){
+					alert("live started");
+				}
+			}
+		};
 		channel.onleave = (event) => {
 			log(generateName(event.userid) + " left");
 		};
@@ -338,7 +346,7 @@ var player = null;
 			InitDesignToRoom(room);
 		}
 
-		function CreateRoomBySeed(currentfile) { // TODO Deprecated
+		function CreateRoomBySeed(currentfile) {
 			tclient.seed(currentfile, (torrent) => {
 				var nowroom = makeid();
 				channel.open(nowroom);
