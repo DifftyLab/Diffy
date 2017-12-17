@@ -30,12 +30,12 @@ font-size: 1.0em;
 padding: 0 0.25em;
 background: #e9ecef;
 }
-
+/*
 .mejs__controls {
-  display: none;
-}
+  visibility: hidden;
+}*/
 .mejs__overlay {
-  display: none;
+  visibility: hidden;
 }
 @media (max-width: 70em) {
   .forkme {

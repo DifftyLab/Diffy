@@ -111,6 +111,9 @@ var player = null;
 			OfferToReceiveAudio: false,
 			OfferToReceiveVideo: false
 		};
+		var isAdmin = () => {
+
+		}
 		//channel.iceServers.push(stunlist);
 		var playtime = 0;
 		var roomid = $('#roomid');
@@ -164,6 +167,7 @@ var player = null;
 				channel.extra.started = true;
 				channel.extra.starttime = Date.now();
 				channel.updateExtraData();
+				player.play();
 			}
 		})
 		roomid.keyup(function(event) {
