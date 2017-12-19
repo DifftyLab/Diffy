@@ -68,9 +68,10 @@
 						<hr class="styleOR">
 						<form id="inputroom">
 							<div class="form-group row">
-								<label for="fileselected" class="col-2 col-form-label">📀 <!-- Seed/File --></label>
+								<!--<label for="fileselected" class="col-2 col-form-label">📀 Seed/File</label>-->
 								<div class="col-10">
 									<div class="input-group">
+										<span class="input-group-addon">📀</span>
 										<input id="filename" type="text" class="form-control" placeholder="File accepted. Torrent, video" readonly="" />
 										<span class="input-group-btn">
 											<div class="btn btn-primary" onmouseup="$('#fileselected').click();">
@@ -83,9 +84,12 @@
 						</form>
 						<hr class="styleOR">
 						<div class="form-group row">
-							<label for="linkselected" class="col-2 col-form-label">🔗 <!-- Links --></label>
+							<!-- <label for="linkselected" class="col-2 col-form-label">🔗  Links</label>-->
 							<div class="col-10">
-								<input id="linkselected" class="form-control" type="text" placeholder="Torrent, Magnet" id="link-text-input" pattern="^(magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{20,50}[\S]+|https?:\/\/[\S]+?\.torrent)$" autofocus><!-- TODO: pattern="(magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{32}|http(s)?:\/\/[\S]+?\.(mp4|m4a|m4v))" -->
+								<div class="input-group">
+									<span class="input-group-addon">🔗</span>
+									<input id="linkselected" class="form-control" type="text" placeholder="Torrent, Magnet" id="link-text-input" pattern="^(magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{20,50}[\S]+|https?:\/\/[\S]+?\.torrent)$" autofocus><!-- TODO: pattern="(magnet:\?xt=urn:[a-z0-9]+:[a-z0-9]{32}|http(s)?:\/\/[\S]+?\.(mp4|m4a|m4v))" -->
+								</div>
 							</div>
 						</div>
 						<p><button id="createroom" class="btn btn-lg btn-secondary" disabled="">Create the room</button></p>
