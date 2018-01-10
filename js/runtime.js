@@ -63,8 +63,8 @@ var player = null;
 		"js/popper.min.js",
 		"js/bootstrap.min.js",
 		"js/jquery.mobile-1.4.5.min.js",
-		"https://diffyheart.herokuapp.com:443/socket.io/socket.io.js",
-		"https://diffyheart.herokuapp.com:443/dist/RTCMultiConnection.js",
+		"https://rooms-diffy.herokuapp.com:443/socket.io/socket.io.js",
+		"https://rooms-diffy.herokuapp.com:443/dist/RTCMultiConnection.js",
 		"js/clientjs.min.js",
 		"js/webtorrent.min.js",
 		"js/VideoStream.min.js",
@@ -103,7 +103,7 @@ var player = null;
 		channel.extra.started = false;
 		channel.extra.starttime = 0;
 
-		channel.socketURL = 'https://diffyheart.herokuapp.com:443/';
+		channel.socketURL = 'https://rooms-diffy.herokuapp.com:443/';
 		channel.session = {
 			data: true
 		};
