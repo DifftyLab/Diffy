@@ -4,7 +4,7 @@ var clientjs = null;
 var player = null;
 (function() {
 	function LoadCss(url) {
-		let queue = []
+		let queue = [];
 		let funcload = () => {
 			var url = queue.shift();
 			let fileref = document.createElement("link");
@@ -16,7 +16,7 @@ var player = null;
 				funcload();
 			}
 		}
-		queue = queue.concat(url)
+		queue = queue.concat(url);
 		funcload();
 	}
 	function LoadScript(url, callback) {
