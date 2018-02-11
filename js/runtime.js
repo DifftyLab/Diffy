@@ -313,9 +313,7 @@ var player = null;
 		}
 
 		function CreateRoomByMagnetAndURL(torrentfile, nocreate = false) {
-			tclient.add(torrentfile, {
-				announce: "wss://tracker-diffyheart.herokuapp.com"
-			}, (torrent) => {
+			tclient.add(torrentfile, {}, (torrent) => { // announce: "wss://tracker-diffyheart.herokuapp.com"
 				var file = torrent.files.find((file) => {
 					return file.name.endsWith('.mp4')
 				});
