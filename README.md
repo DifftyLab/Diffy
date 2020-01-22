@@ -1,7 +1,7 @@
 <h1 align="center">
     <br>
     <a href="https://github.com/Diffylab/Diffy">
-        <img src="Diffy.svg" alt="Diffy" width="200">
+        <img src="diffy.svg" alt="Diffy" width="200">
     </a>
   <br>
   Diffy v2.0
