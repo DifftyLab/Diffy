@@ -4,8 +4,6 @@
         <img src="diffy.svg" alt="Diffy" width="400">
     </a>
   <br>
-  <br>
-  <br>
 </h1>
 
 <h4 align="center">🎞️💓🍿 Love streaming - It's always best to watch a movie together ! 🤗</h4>
