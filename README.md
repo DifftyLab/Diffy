@@ -4,7 +4,6 @@
         <img src="diffy.svg" alt="Diffy" width="400">
     </a>
   <br>
-    <h4>v1.0</h4>
   <br>
   <br>
 </h1>
