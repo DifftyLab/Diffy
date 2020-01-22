@@ -9,7 +9,7 @@
   <br>
 </h1>
 
-<h4 align="center">&#128204; 🎞️💓🍿 Love streaming - It's always best to watch a movie together ! 🤗</h4>
+<h4 align="center">&#128204; <strong>v1.0</strong></h4>
 
 ## &#x1F4BE; Install
 
