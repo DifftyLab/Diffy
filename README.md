@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1 align="center">
     <br>
     <a href="https://github.com/Diffylab/Diffy">
@@ -30,3 +31,7 @@ $ cd Diffy-master
 ## &#x00A9;&#xFE0F; License
 
 GNU v3.0. Copyright (c) [Aabbfive](https://github.com/aabbfive).
+=======
+# Diffy
+🎞️💓🍿 Love streaming - It's always best to watch a movie together
+>>>>>>> master
