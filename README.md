@@ -4,12 +4,12 @@
         <img src="diffy.svg" alt="Diffy" width="400">
     </a>
   <br>
-  Diffy v2.0
+    <h4>v1.0</h4>
   <br>
   <br>
 </h1>
 
-<h4 align="center">&#128204; <strong>v1.0</strong></h4>
+<h4 align="center">🎞️💓🍿 Love streaming - It's always best to watch a movie together ! 🤗</h4>
 
 ## &#x1F4BE; Install
 
