@@ -1,6 +1,6 @@
 
 
-// BFT Media Syncronization
+// BFT Media Reading Syncronization
 
 Click play ->
 	Send currenttime
@@ -12,8 +12,8 @@ Click play ->
 		While:
 			estimatedSeconds = now-initialReceivedTime
 			// Threshold(seconds) recommendations
-			// 1.0 to 2.5 - For buffered network (to be re-evaluated)
-			// 0.0 to 1.0 - For segmented network (ex: HLS/DASH) (YES permit real no-latency)
+			// 1.0 to 3.0 - For buffered network (to be re-evaluated)
+			// 0.0 - For segmented network (ex: HLS/DASH) (YES permit real no-latency)
 			if abs(playerSeconds - estimatedSeconds) > threshold then
 				set playerSeconds to estimatedSeconds
 			
