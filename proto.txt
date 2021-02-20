@@ -4,3 +4,9 @@ Click play ->
 	Recevied --<
 		(Loading ...) Draw GIF (3..2..1...)
 		Play
+	onPlay:
+		While:
+			estimatedSeconds = now-initialReceivedTime
+			if abs(playerSeconds - estimatedSeconds) > 6 seconds then
+				set playerSeconds to estimatedSeconds
+			
