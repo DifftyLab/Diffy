@@ -12,7 +12,7 @@ Click play ->
 		While:
 			estimatedSeconds = now-initialReceivedTime
 			// Threshold(seconds) recommendations
-			// 1.0 to 3.0 - For buffered network (to be re-evaluated)
+			// 1.0 to 3.0 - For buffered network (to be re-evaluated at downwards threshold)
 			// 0.0 - For segmented network (ex: HLS/DASH) (YES permit real no-latency)
 			if abs(playerSeconds - estimatedSeconds) > threshold then
 				set playerSeconds to estimatedSeconds
